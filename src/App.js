@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Points} from './components/points'
+import {AddPointForm} from './components/addPointForm';
+import {PerformRegression} from './components/performRegression';
+import { Container } from 'semantic-ui-react';
 
 function App() {
+  const [points, setPoints] = useState([[1, 2],[2, 1],[3, 4]]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <AddPointForm onNewPoint={
+        point => setPoints(currentPoints => [...currentPoints, point])
+      }/>
+      <PerformRegression points={points}/>
+      <Points points={points}/>
+    </Container>
   );
 }
 
