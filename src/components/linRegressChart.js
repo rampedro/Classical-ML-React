@@ -1,4 +1,4 @@
-import React, {componentDidUpdate, Component} from 'react';
+import React, {Component} from 'react';
 import {Bar} from 'react-chartjs-2';
 
 
