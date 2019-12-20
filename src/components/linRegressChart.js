@@ -123,7 +123,6 @@ export class LinRegressChart extends Component {
                 metadata: this.props.metadata,
                 toggle: this.props.toggle
             });
-            console.log(this.state.points);
         }
     };
 
