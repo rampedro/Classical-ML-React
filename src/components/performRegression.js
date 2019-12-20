@@ -1,16 +1,16 @@
 import React from 'react';
 import {Button} from 'semantic-ui-react';
 
-export const PerformRegression = ({points}) => {
+export const PerformRegression = ({points, updateMetadata}) => {
     return (
         <Button onClick={ async () => {
             const x = [];
             const y = [];
             points.map(point => {
-                x.push(point[0]);
-                y.push(point[1]);
+                x.push(point.x);
+                y.push(point.y);
             });
-
+            
             const response = await fetch('/lin_regress', {
                 method: 'PUT',
                 headers: {
@@ -22,8 +22,8 @@ export const PerformRegression = ({points}) => {
                 })
             });
 
-            const outputData = await response.json();
-            console.log(JSON.stringify(outputData));
+            const metadata = await response.json();
+            updateMetadata(metadata);
         }}>
             Perform Linear Regression!
         </Button>

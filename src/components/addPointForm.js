@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
 
+
 export const AddPointForm = ({onNewPoint}) => {
     const [x, setX] = useState('');
     const [y, setY] = useState('');
@@ -47,7 +48,7 @@ export const AddPointForm = ({onNewPoint}) => {
             </div>
             <Button disabled={!(validNumber(x) && validNumber(y))}
                     onClick={() => {
-                        onNewPoint([x, y]);
+                        onNewPoint({x: Number(x), y: Number(y)});
                         setX('');
                         setY('');
                         setXStatus('');

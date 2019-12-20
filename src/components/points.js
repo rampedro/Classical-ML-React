@@ -7,7 +7,7 @@ export const Points = ({points}) => {
         {points.map((point, i) => {
             return (
                 <List.Item key={i}>
-                    <Header>({point[0]}, {point[1]})</Header>
+                    <Header>({point.x}, {point.y})</Header>
                 </List.Item>
             );
         })}
