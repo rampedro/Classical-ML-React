@@ -3,9 +3,6 @@ import numpy as np
 def linRegression(data):
     x_ = np.array(data["x"], dtype='float')
     y = np.array(data["y"], dtype='float')
-    #idx = np.argsort(x_)
-    #x_ = x_[idx]
-    #y = y[idx]
 
     A = np.ones((x_.shape[0], 2))
     A[:, 0] = x_

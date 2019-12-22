@@ -45,7 +45,7 @@ const getData = (points, pts) => {
     };
 };
 
-const getOptions = (labels) => {
+const getOptions = (points, labels) => {
     return {
         tooltips: {
             filter: function (tooltipItem) {
@@ -58,7 +58,9 @@ const getOptions = (labels) => {
                     return '';
                 },
                 label: function(tooltipItem) {
-                    return '(' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+                    const x = points[tooltipItem.index].x
+                    const y = points[tooltipItem.index].y
+                    return '(' + x + ', ' + y + ')';
                 }
             },
         },
@@ -111,7 +113,7 @@ export class LinRegressChart extends Component {
             points: this.props.points,
             labels: range(this.props.metadata.pts[0].x, this.props.metadata.pts[1].x),
             metadata: this.props.metadata,
-            toggle: 0
+            toggle: this.props.toggle
         };
     };
 
@@ -132,7 +134,7 @@ export class LinRegressChart extends Component {
             <Bar
                 data={getData(this.state.points, this.state.metadata.pts)}
                 width={800}
-                options={getOptions(this.state.labels)}
+                options={getOptions(this.state.points, this.state.labels)}
             />
         );
     }

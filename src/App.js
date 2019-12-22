@@ -1,44 +1,54 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import {Points} from './components/points'
 import {AddPointForm} from './components/addPointForm';
-import {PerformRegression} from './components/performRegression';
+// import {PerformRegression} from './components/performRegression';
 import {LinRegressChart} from './components/linRegressChart';
 import { Container } from 'semantic-ui-react';
 
 
-function App() {
-    const [points, setPoints] = useState([{x: 1, y: 2}, {x: 2, y: 1}, {x: 3, y: 4}]);
-    const [metadata, setMetadata] = useState({
-        pts: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
-        m: 1,
-        b: 0.33,
-        residual: 0
-    });
-    const [toggle, setToggle] = useState(0);
+export default class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            points: [{x: 1, y: 2}, {x: 2, y: 1}, {x: 3, y: 4}],
+            metadata: {
+                pts: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
+                m: 1,
+                b: 0.33,
+                residual: 0
+            },
+            toggle: 0
+        };
+    };
 
-    return (
-        <Container>
-            <AddPointForm onNewPoint={
-                point => setPoints(currentPoints => [...currentPoints, point])
-            }/>
-            <PerformRegression 
-                points={points}
-                updateMetadata={
-                    newMetadata => {
-                        setMetadata(newMetadata);
-                        setToggle((toggle + 1) % 2);
+    render() {
+        return (
+            <Container>
+                <AddPointForm 
+                    points={this.state.points}
+                    onNewPoint={
+                        point => this.setState({
+                            points: [...this.state.points, point]
+                        })
                     }
-                }
-            />
-            <Points points={points}/>
-            <LinRegressChart
-                points={points}
-                metadata={metadata}
-                toggle={toggle}
-            />
-        </Container>
-    );
-}
-
-export default App;
+                    updateMetadata={
+                        newMetadata => this.setState({
+                            metadata: newMetadata,
+                            toggle: (this.state.toggle + 1) % 2
+                        })
+                    }
+                />
+                <Points 
+                    points={this.state.points}
+                    toggle={this.state.toggle}
+                />
+                <LinRegressChart
+                    points={this.state.points}
+                    metadata={this.state.metadata}
+                    toggle={this.state.toggle}
+                />
+            </Container>
+        );
+    }
+};
