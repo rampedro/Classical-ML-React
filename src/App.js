@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import {Points} from './components/points'
 import {AddPointForm} from './components/addPointForm';
-// import {PerformRegression} from './components/performRegression';
 import {LinRegressChart} from './components/linRegressChart';
 import { Container } from 'semantic-ui-react';
 
@@ -42,6 +41,12 @@ export default class App extends Component {
                 <Points 
                     points={this.state.points}
                     toggle={this.state.toggle}
+                    deletePoint={
+                        i => this.setState({
+                                points: this.state.points.filter((_, idx) => i !== idx),
+                                toggle: (this.state.toggle + 1) % 2
+                            })
+                    }
                 />
                 <LinRegressChart
                     points={this.state.points}

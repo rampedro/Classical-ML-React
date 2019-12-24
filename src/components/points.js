@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {List, Header} from 'semantic-ui-react';
+import {List, Header, Button} from 'semantic-ui-react';
 
 export class Points extends Component {
     constructor(props) {
         super(props);
         this.state = {
             points: this.props.points,
-            toggle: this.props.toggle
+            toggle: this.props.toggle,
+            deletePoint: this.props.deletePoint
         };
     };
 
@@ -22,7 +23,17 @@ export class Points extends Component {
             {this.state.points.map((point, i) => {
                 return (
                     <List.Item key={i}>
-                        <Header>({point.x}, {point.y})</Header>
+                        <Header>
+                            ({point.x}, {point.y})
+                            &nbsp;
+                            <Button onClick={
+                                _ => {
+                                    this.state.deletePoint(i);
+                                }
+                            }>
+                                Delete
+                            </Button>
+                        </Header>
                     </List.Item>
                 );
             })}
