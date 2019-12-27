@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
-
+import './addPointForm.css';
 
 function validNumber(str) {
     return str.length > 0 && isFinite(str);
@@ -57,9 +57,10 @@ export class AddPointForm extends Component {
     render() {
         return (
             <Form>
-                <div style={{display: 'flex'}}>
+                <header>
                     <Form.Field>
-                        <Input  placeholder='X-Coordinate'
+                        <Input  className="coordinateInput"
+                                placeholder='X-Coordinate'
                                 value={this.state.x}
                                 onChange={e => {
                                     this.setState({x: e.target.value});
@@ -71,11 +72,12 @@ export class AddPointForm extends Component {
                         />
                     </Form.Field>
                     &nbsp;&nbsp;
-                    <span style={{color: 'red'}}>{this.state.xStatus}</span>
-                </div>
-                <div style={{display: 'flex'}}>
+                    <span>{this.state.xStatus}</span>
+                </header>
+                <header>
                     <Form.Field>
-                        <Input  placeholder='Y-Coordinate'
+                        <Input  className="coordinateInput"
+                                placeholder='Y-Coordinate'
                                 value={this.state.y}
                                 onChange={e => {
                                     this.setState({y: e.target.value});
@@ -87,9 +89,10 @@ export class AddPointForm extends Component {
                         />
                     </Form.Field>
                     &nbsp;&nbsp;
-                    <span style={{color: 'red'}}>{this.state.yStatus}</span>
-                </div>
-                <Button disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
+                    <span>{this.state.yStatus}</span>
+                </header>
+                <Button primary
+                        disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
                         onClick={async () => {
                             this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});
                             this.setState({
