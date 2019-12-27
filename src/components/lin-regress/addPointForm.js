@@ -70,9 +70,8 @@ export class AddPointForm extends Component {
                                         this.setState({xStatus: ''});
                                 }}
                         />
+                        <span>{this.state.xStatus}</span>
                     </Form.Field>
-                    &nbsp;&nbsp;
-                    <span>{this.state.xStatus}</span>
                 </header>
                 <header>
                     <Form.Field>
@@ -87,9 +86,8 @@ export class AddPointForm extends Component {
                                         this.setState({yStatus: ''});
                                 }}
                         />
+                        <span>{this.state.yStatus}</span>
                     </Form.Field>
-                    &nbsp;&nbsp;
-                    <span>{this.state.yStatus}</span>
                 </header>
                 <Button primary
                         disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
