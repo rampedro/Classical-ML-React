@@ -56,10 +56,10 @@ export class AddPointForm extends Component {
 
     render() {
         return (
-            <Form>
-                <header>
+            <Form className='xy-form'>
+                <header className="xy-form__row">
                     <Form.Field>
-                        <Input  className="coordinateInput"
+                        <Input  className="xy-form__row__input"
                                 placeholder='X-Coordinate'
                                 value={this.state.x}
                                 onChange={e => {
@@ -70,12 +70,12 @@ export class AddPointForm extends Component {
                                         this.setState({xStatus: ''});
                                 }}
                         />
-                        <span>{this.state.xStatus}</span>
+                        <span className='xy-form__row__span'>{this.state.xStatus}</span>
                     </Form.Field>
                 </header>
-                <header>
+                <header className="xy-form__row">
                     <Form.Field>
-                        <Input  className="coordinateInput"
+                        <Input  className="xy-form__row__input"
                                 placeholder='Y-Coordinate'
                                 value={this.state.y}
                                 onChange={e => {
@@ -86,10 +86,11 @@ export class AddPointForm extends Component {
                                         this.setState({yStatus: ''});
                                 }}
                         />
-                        <span>{this.state.yStatus}</span>
+                        <span className="xy-form__row__span">{this.state.yStatus}</span>
                     </Form.Field>
                 </header>
                 <Button primary
+                        className="add-point"
                         disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
                         onClick={async () => {
                             this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});

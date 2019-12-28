@@ -1,9 +1,17 @@
-header {
+.xy-form {
+    padding-top: 10px;
+}
+
+.xy-form__row {
     display: flex;
     padding-bottom: 10px;
 }
 
-span {
+.xy-form__row__input {
+    width: 115px !important;
+}
+
+.xy-form__row__span {
     color: red;
     font-size: 1.1em;
     margin-left: 10px;
@@ -12,8 +20,4 @@ span {
     -webkit-align-items: center;
     align-items: center;
     justify-content: center;
-}
-
-.coordinateInput {
-    width: 10% !important;
 }
