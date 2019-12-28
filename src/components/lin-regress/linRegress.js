@@ -3,6 +3,7 @@ import {Points} from './points'
 import {AddPointForm} from './addPointForm';
 import {LinRegressChart} from './linRegressChart';
 import { Container } from 'semantic-ui-react';
+import './linRegress.css';
 
 
 export class LinRegress extends Component {
@@ -22,8 +23,9 @@ export class LinRegress extends Component {
 
     render() {
         return (
-            <Container>
+            <Container className="lin-regress">
                 <AddPointForm 
+                    className='lin-regress__form'
                     points={this.state.points}
                     onNewPoint={
                         point => this.setState({
@@ -38,6 +40,7 @@ export class LinRegress extends Component {
                     }
                 />
                 <Points 
+                    className='lin-regress__points'
                     points={this.state.points}
                     toggle={this.state.toggle}
                     deletePoint={
@@ -48,6 +51,7 @@ export class LinRegress extends Component {
                     }
                 />
                 <LinRegressChart
+                    className='lin-regress__chart'
                     points={this.state.points}
                     metadata={this.state.metadata}
                     toggle={this.state.toggle}

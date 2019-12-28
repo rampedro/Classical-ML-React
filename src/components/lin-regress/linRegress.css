@@ -1,0 +1,15 @@
+.lin-regress {
+    display: grid !important;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.lin-regress__points {
+    align-self: flex-start;
+}
+
+.lin-regress__chart {
+
+}
