@@ -172,11 +172,13 @@ export class LinRegressChart extends Component {
 
     render() {
         return (
-            <Bar
-                data={getData(this.state.points, this.state.metadata.pts)}
-                width={800}
-                options={getOptions(this.state.points, this.state.labels)}
-            />
+            <div className='lin-regress__chart'>
+                <Bar
+                    data={getData(this.state.points, this.state.metadata.pts)}
+                    width={400}
+                    options={getOptions(this.state.points, this.state.labels)}
+                />
+            </div>
         );
     }
 };

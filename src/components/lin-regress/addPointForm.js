@@ -56,55 +56,58 @@ export class AddPointForm extends Component {
 
     render() {
         return (
-            <Form className='xy-form'>
-                <header className="xy-form__row">
-                    <Form.Field>
-                        <Input  className="xy-form__row__input"
-                                placeholder='X-Coordinate'
-                                value={this.state.x}
-                                onChange={e => {
-                                    this.setState({x: e.target.value});
-                                    if (!validNumber(e.target.value))
-                                        this.setState({xStatus: 'Not a number!'});
-                                    else
-                                        this.setState({xStatus: ''});
-                                }}
-                        />
-                        <span className='xy-form__row__span'>{this.state.xStatus}</span>
-                    </Form.Field>
-                </header>
-                <header className="xy-form__row">
-                    <Form.Field>
-                        <Input  className="xy-form__row__input"
-                                placeholder='Y-Coordinate'
-                                value={this.state.y}
-                                onChange={e => {
-                                    this.setState({y: e.target.value});
-                                    if (!validNumber(e.target.value))
-                                        this.setState({yStatus: 'Not a number!'});
-                                    else
-                                        this.setState({yStatus: ''});
-                                }}
-                        />
-                        <span className="xy-form__row__span">{this.state.yStatus}</span>
-                    </Form.Field>
-                </header>
-                <Button primary
-                        className="add-point"
-                        disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
-                        onClick={async () => {
-                            this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});
-                            this.setState({
-                                x: '',
-                                y: '',
-                                xStatus: '',
-                                yStatus: ''
-                            });
-                        }
-                }>
-                    Add Point
-                </Button>
-            </Form>
+            <div className='lin-regress__form'>
+                <h2><u>Input Point</u>:</h2>
+                <Form className='xy-form'>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <Input  className="xy-form__row__input"
+                                    placeholder='X-Coordinate'
+                                    value={this.state.x}
+                                    onChange={e => {
+                                        this.setState({x: e.target.value});
+                                        if (!validNumber(e.target.value))
+                                            this.setState({xStatus: 'Not a number!'});
+                                        else
+                                            this.setState({xStatus: ''});
+                                    }}
+                            />
+                            <span className='xy-form__row__span'>{this.state.xStatus}</span>
+                        </Form.Field>
+                    </header>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <Input  className="xy-form__row__input"
+                                    placeholder='Y-Coordinate'
+                                    value={this.state.y}
+                                    onChange={e => {
+                                        this.setState({y: e.target.value});
+                                        if (!validNumber(e.target.value))
+                                            this.setState({yStatus: 'Not a number!'});
+                                        else
+                                            this.setState({yStatus: ''});
+                                    }}
+                            />
+                            <span className="xy-form__row__span">{this.state.yStatus}</span>
+                        </Form.Field>
+                    </header>
+                    <Button primary
+                            className="add-point"
+                            disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
+                            onClick={async () => {
+                                this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});
+                                this.setState({
+                                    x: '',
+                                    y: '',
+                                    xStatus: '',
+                                    yStatus: ''
+                                });
+                            }
+                    }>
+                        Add Point
+                    </Button>
+                </Form>
+            </div>
         );
     }
 };
