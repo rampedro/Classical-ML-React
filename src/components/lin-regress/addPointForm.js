@@ -3,7 +3,8 @@ import {Form, Input, Button} from 'semantic-ui-react';
 import './addPointForm.css';
 
 function validNumber(str) {
-    return str.length > 0 && isFinite(str);
+    let trimmed = str.trim();
+    return trimmed.length > 0 && isFinite(trimmed);
 };
 
 async function getMetadata(points) {
@@ -66,10 +67,10 @@ export class AddPointForm extends Component {
                                     value={this.state.x}
                                     onChange={e => {
                                         this.setState({x: e.target.value});
-                                        if (!validNumber(e.target.value))
-                                            this.setState({xStatus: 'Not a number!'});
-                                        else
+                                        if (validNumber(e.target.value) || e.target.value.length === 0)
                                             this.setState({xStatus: ''});
+                                        else
+                                            this.setState({xStatus: 'Not a number!'});
                                     }}
                             />
                             <span className='xy-form__row__span'>{this.state.xStatus}</span>
@@ -82,10 +83,10 @@ export class AddPointForm extends Component {
                                     value={this.state.y}
                                     onChange={e => {
                                         this.setState({y: e.target.value});
-                                        if (!validNumber(e.target.value))
-                                            this.setState({yStatus: 'Not a number!'});
-                                        else
+                                        if (validNumber(e.target.value) || e.target.value.length === 0)
                                             this.setState({yStatus: ''});
+                                        else
+                                            this.setState({yStatus: 'Not a number!'});
                                     }}
                             />
                             <span className="xy-form__row__span">{this.state.yStatus}</span>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Header, Button, Icon} from 'semantic-ui-react';
+import {List, Button, Icon} from 'semantic-ui-react';
 import './points.css';
 
 export class Points extends Component {
@@ -26,7 +26,7 @@ export class Points extends Component {
                 {this.state.points.map((point, i) => {
                     return (
                         <List.Item key={i}>
-                            <Header className='point-row'>
+                            <header className='point-row'>
                                 <span className='point-row__point'>
                                     ({point.x}, {point.y})
                                 </span>
@@ -37,7 +37,7 @@ export class Points extends Component {
                                 }>
                                     <Icon name='close' />
                                 </Button>
-                            </Header>
+                            </header>
                         </List.Item>
                     );
                 })}
