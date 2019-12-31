@@ -23,3 +23,8 @@
     grid-row: 1/3;
     grid-column: 2/5;
 }
+
+.lin-regress__background {
+    padding-top: 25px;
+    padding-bottom: 50px;
+}

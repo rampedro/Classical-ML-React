@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Points} from './points'
 import {AddPointForm} from './addPointForm';
 import {LinRegressChart} from './linRegressChart';
+import {LinRegressBackground} from './linRegressBackground';
 import { Container } from 'semantic-ui-react';
 import './linRegress.css';
 
@@ -23,37 +24,41 @@ export class LinRegress extends Component {
 
     render() {
         return (
-            <Container className="lin-regress">
-                <AddPointForm 
-                    points={this.state.points}
-                    onNewPoint={
-                        point => this.setState({
-                            points: [...this.state.points, point]
-                        })
-                    }
-                    updateMetadata={
-                        newMetadata => this.setState({
-                            metadata: newMetadata,
-                            toggle: (this.state.toggle + 1) % 2
-                        })
-                    }
-                />
-                <Points 
-                    points={this.state.points}
-                    toggle={this.state.toggle}
-                    deletePoint={
-                        i => this.setState({
-                                points: this.state.points.filter((_, idx) => i !== idx),
+            <div>
+                <Container className="lin-regress">
+                    <AddPointForm 
+                        points={this.state.points}
+                        onNewPoint={
+                            point => this.setState({
+                                points: [...this.state.points, point]
+                            })
+                        }
+                        updateMetadata={
+                            newMetadata => this.setState({
+                                metadata: newMetadata,
                                 toggle: (this.state.toggle + 1) % 2
                             })
-                    }
-                />
-                <LinRegressChart
-                    points={this.state.points}
-                    metadata={this.state.metadata}
-                    toggle={this.state.toggle}
-                />
-            </Container>
+                        }
+                    />
+                    <Points 
+                        points={this.state.points}
+                        toggle={this.state.toggle}
+                        deletePoint={
+                            i => this.setState({
+                                    points: this.state.points.filter((_, idx) => i !== idx),
+                                    toggle: (this.state.toggle + 1) % 2
+                                })
+                        }
+                    />
+                    <LinRegressChart
+                        points={this.state.points}
+                        metadata={this.state.metadata}
+                        toggle={this.state.toggle}
+                    />
+                </Container>
+                <hr></hr>
+                <LinRegressBackground />
+            </div>
         );
     }
 };

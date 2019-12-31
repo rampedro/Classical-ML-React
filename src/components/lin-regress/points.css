@@ -1,5 +1,5 @@
 .lin-regress__points-list {
-    height: 150px;
+    height: 120px;
     overflow: auto;
 }
 
@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     margin-right: 25px;
-    border-style: solid none none none;
+    border-style: none none none none;
     border-width: 2px;
 }
 
