@@ -42,7 +42,7 @@ export const LinRegressBackground = _ => {
                 to minimize the error that it produces from predicting the 
                 dependent variable. This "error" is the Mean-Squared-Error (MSE):
             </p>
-            <BlockMath math='\mathrm{MSE} = \sum_{i=1}^{n} (y_i - \textbf{w}^{T} \textbf{x}_i)^2'/>
+            <BlockMath math='\mathrm{MSE} = \frac{1}{m} \sum_{i=1}^{m} (y_i - \textbf{w}^{T} \textbf{x}_i)^2'/>
             <p>
                 Unlike most machine learning techniques out there, linear regression has
                 a closed-form solution. For modeling the data 
@@ -81,8 +81,8 @@ export const LinRegressBackground = _ => {
             </p>
             <BlockMath math='\mid\mid \textbf{y} - X\textbf{w} \mid\mid_2'/>
             <p>
-                where the above quantity denotes the vector 2-norm. This vector
-                2-norm is in fact the MSE! We solve the over-determined system like so:
+                where the above quantity denotes the vector 2-norm. Minimizing the above will
+                minimize the MSE! We solve the over-determined system like so:
             </p>
             <BlockMath 
                 math='\begin{aligned}
