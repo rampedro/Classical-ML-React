@@ -87,15 +87,13 @@ export class SVMChart extends Component {
         svmLines.enter().append('path')
             .merge(svmLines)
             .attr('class', (_, i) => {
-                if (i === 0)
-                    return 'svm__chart__boundary-line';
-                else if (i === 1)
-                    return 'svm__chart__upper-line dashed';
-                else
-                    return 'svm__chart__lower-line dashed';
+                if (i !== 0)
+                    return 'dashed';
             })
             .attr('fill', 'none')
-            .attr('stroke', '#000000')
+            .attr('stroke', (_, i) => {
+                return this.props.colors[i];
+            })
             .attr('stroke-width', 3)
             .transition().duration(500)
             .attr('d', (d) => line(d))

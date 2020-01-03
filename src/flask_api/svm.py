@@ -7,6 +7,23 @@ def makeLine(xx, yy):
     return leftPoint, rightPoint
 
 
+def getColors(clf, xx, yy_up, yy_down):
+    colors = ['#000000']
+    predicted = clf.predict([[xx[0], yy_up[0]]])
+    if np.max(predicted) == 1:
+        colors.append('#FF0000')
+    else:
+        colors.append('#0000FF')
+
+    predicted = clf.predict([[xx[0], yy_down[0]]])
+    if np.max(predicted) == 1:
+        colors.append('#FF0000')
+    else:
+        colors.append('#0000FF')
+    
+    return colors
+
+
 def svm(data, eps=1e-3):
     x = np.array(data["x"], dtype='float')
     y = np.array(data["y"], dtype='float')
@@ -19,6 +36,7 @@ def svm(data, eps=1e-3):
             "boundaryLine": [zero] * 2,
             "upperLine": [zero] * 2,
             "lowerLine": [zero] * 2,
+            "colors": ['#000000', '#000000', '#000000'],
             "accuracy": 'N/A'
         }
 
@@ -41,11 +59,13 @@ def svm(data, eps=1e-3):
     leftPoint, rightPoint = makeLine(xx, yy)
     upperLeft, upperRight = makeLine(xx, yy_up)
     downLeft, downRight = makeLine(xx, yy_down)
+    colors = getColors(clf, xx, yy_up, yy_down)
     
     output_data = {
         "boundaryLine": [leftPoint, rightPoint],
         "upperLine": [upperLeft, upperRight],
         "lowerLine": [downLeft, downRight],
+        "colors": colors,
         "accuracy": f'{acc}%'
     }
 

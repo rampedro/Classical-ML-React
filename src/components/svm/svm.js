@@ -16,6 +16,7 @@ export class SVM extends Component {
                 boundaryLine: [{x: 0.0, y: 0.0}, {x: 4.0, y: 3.996}],
                 upperLine: [{x: 0.0, y: 0.9995}, {x: 4.0, y: 4.9955}], 
                 lowerLine: [{x: 0.0, y: -0.9995}, {x: 4.0, y: 2.9965}],
+                colors: ['#000000', '#FF0000', '#0000FF'],
                 accuracy: '100.00%'
             },
             toggle: 0
@@ -55,6 +56,7 @@ export class SVM extends Component {
                         boundaryLine={this.state.metadata.boundaryLine}
                         upperLine={this.state.metadata.upperLine}
                         lowerLine={this.state.metadata.lowerLine}
+                        colors={this.state.metadata.colors}
                     />
                 </Container>
                 <span size='large'>
