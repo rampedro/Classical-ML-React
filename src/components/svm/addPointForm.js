@@ -135,7 +135,6 @@ export class AddPointForm extends Component {
                                 this.setState({
                                     x: '',
                                     y: '',
-                                    label: null,
                                     xStatus: '',
                                     yStatus: ''
                                 });

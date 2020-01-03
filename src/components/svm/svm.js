@@ -13,8 +13,8 @@ export class SVM extends Component {
         this.state = {
             points: [{x: 1, y: 2, label: 1}, {x: 2, y: 1, label: -1}, {x: 3, y: 4, label: 1}],
             metadata: {
-                pts: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
-                accuracy: 66.67
+                pts: [{x: 0.0, y: -1}, {x: 4.0, y: 1}],
+                accuracy: '100.00%'
             },
             toggle: 0
         };
@@ -48,12 +48,14 @@ export class SVM extends Component {
                                 })
                         }
                     />
-                    <SVMChart
+                    <SVMChart 
                         points={this.state.points}
-                        metadata={this.state.metadata}
-                        toggle={this.state.toggle}
+                        linePoints={this.state.metadata.pts}
                     />
                 </Container>
+                <span size='large'>
+                    SVM Accuracy: {this.state.metadata.accuracy}
+                </span>
                 <hr></hr>
                 <SVMBackground />
             </div>
