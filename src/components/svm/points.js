@@ -29,7 +29,7 @@ export class Points extends Component {
                             <List.Item key={i}>
                                 <header className='point-row'>
                                     <span className='point-row__point'>
-                                    {point.label === 1 ? '+1' : '-1'}: 
+                                    {point.label === 1 ? 'Red' : 'Blue'}: 
                                     ({point.x}, {point.y})
                                     </span>
                                     <Button className='point-row__delete'

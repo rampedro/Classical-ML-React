@@ -5,12 +5,12 @@ import './addPointForm.css';
 const options = [
     {
         key: '+1',
-        text: '+1',
+        text: 'Red',
         value: 1
     },
     {
         key: '-1',
-        text: '-1',
+        text: 'Blue',
         value: -1
     }
 ]

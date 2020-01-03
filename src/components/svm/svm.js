@@ -3,7 +3,7 @@ import {Points} from './points'
 import {AddPointForm} from './addPointForm';
 import {SVMChart} from './svmChart';
 import {SVMBackground} from './svmBackground';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import './svm.css';
 
 
@@ -59,9 +59,9 @@ export class SVM extends Component {
                         colors={this.state.metadata.colors}
                     />
                 </Container>
-                <span size='large'>
+                <Header size='small'>
                     SVM Accuracy: {this.state.metadata.accuracy}
-                </span>
+                </Header>
                 <hr></hr>
                 <SVMBackground />
             </div>
