@@ -27,7 +27,7 @@ def linRegression(data):
     x = np.round(x, 2)
     y = np.round(m*x + b, 2)
     output_data = {
-        "pts": [leftPoint, rightPoint],
+        "bestFitLine": [leftPoint, rightPoint],
         "m": m,
         "b": b,
         "residual": residual

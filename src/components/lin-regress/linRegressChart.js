@@ -1,184 +1,129 @@
 import React, {Component} from 'react';
-import {Bar} from 'react-chartjs-2';
-
-
-const getData = (points, pts) => {
-    const leftPoint = {
-        x: pts[0].x,
-        y: pts[0].y
-    }
-
-    const rightPoint = {
-        x: pts[1].x,
-        y: pts[1].y
-    }
-    return {
-        datasets: [
-            {
-                label                    : 'Points',
-                type                     : 'scatter',
-                data                     : points,
-                fill                     : false,
-                borderColor              : '#EC932F',
-                backgroundColor          : '#EC932F',
-                pointBorderColor         : '#EC932F',
-                pointBackgroundColor     : '#EC932F',
-                pointHoverBackgroundColor: '#EC932F',
-                pointHoverBorderColor    : '#EC932F',
-                pointRadius              : 5,
-                pointHoverRadius         : 5,
-                yAxisID                  : 'y-axis-0'
-            }, {
-                label               : 'Best Fit Line',
-                type                : 'line',
-                data                : [leftPoint, rightPoint],
-                fill                : false,
-                backgroundColor     : '#71B37C',
-                borderColor         : '#71B37C',
-                hoverBackgroundColor: '#71B37C',
-                hoverBorderColor    : '#71B37C',
-                pointRadius              : 0,
-                pointHoverRadius         : 0,
-                yAxisID             : 'y-axis-1'
-            }
-        ]
-    };
-};
-
-const getOptions = (points, labels) => {
-    return {
-        tooltips: {
-            filter: function (tooltipItem) {
-                return tooltipItem.datasetIndex === 0;
-            },
-            mode: 'point',
-            displayColors: false,
-            callbacks: {    
-                title: function() {
-                    return '';
-                },
-                label: function(tooltipItem) {
-                    const x = points[tooltipItem.index].x
-                    const y = points[tooltipItem.index].y
-                    return '(' + x + ', ' + y + ')';
-                }
-            },
-        },
-        legend: {
-            display: false
-        },
-        responsive: true,
-        elements: {
-            line: {
-                fill: false
-            }
-        },
-        scales: {
-            xAxes: [{
-                labels: labels
-            }, {
-                position: 'top',
-                ticks: {
-                    display: false
-                },
-                gridLines: {
-                    display: false,
-                    drawTicks: false
-                }
-            }],
-            yAxes: [{
-                /* Your yAxes options here */
-            }, {
-                position: 'right',
-                ticks: {
-                    display: false
-                },
-                gridLines: {
-                    display: false,
-                    drawTicks: false
-                }
-            }]
-        }
-    };
-};
-
-const pointsCompare = (a, b) => {
-    if (a.x > b.x)
-        return 1;
-    else if (a.x < b.x)
-        return -1;
-    else
-        return 0;
-};
-
-const merge = (labels, otherLabels) => {
-    let newLabels = [];
-    let i = 0, j = 0;
-    while (i < labels.length || j < otherLabels.length) {
-        if (i < labels.length && j < otherLabels.length) {
-            if (labels[i] < otherLabels[j].x) {
-                newLabels.push(labels[i]);
-                i++;
-            } else {
-                newLabels.push(otherLabels[j].x);
-                j++;
-            }
-        } else if (i < labels.length) {
-            newLabels.push(labels[i]);
-            i++;
-        } else {
-            newLabels.push(otherLabels[j].x);
-            j++;
-        }
-    }
-
-    return newLabels;
-};
-
-const range = (low, high, points) => { 
-    let labels = Array.from(new Array(high - low + 1), (_, i) => i + low);
-    let otherLabels = points.filter((point) => {
-        return !Number.isInteger(point.x);
-    });
-    otherLabels.sort(pointsCompare);
-
-    let allLabels = merge(labels, otherLabels);
-    return allLabels;
-};
+import * as d3 from 'd3';
 
 
 export class LinRegressChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            points: this.props.points,
-            labels: range(this.props.metadata.pts[0].x, this.props.metadata.pts[1].x, this.props.points),
-            metadata: this.props.metadata,
-            toggle: this.props.toggle
+            width: 800,
+            height: 400,
+            radius: 5,
+            color: '#FF0000',
+            margin: {
+                left: 50,
+                right: 10,
+                top: 20,
+                bottom: 50
+            }
         };
+
+        this.drawWidth = this.state.width - this.state.margin.left - this.state.margin.right;
+        this.drawHeight = this.state.height - this.state.margin.top - this.state.margin.bottom;
     };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.toggle !== prevProps.toggle) {
-            this.setState({
-                points: this.props.points,
-                labels: range(this.props.metadata.pts[0].x, this.props.metadata.pts[1].x, this.props.points),
-                metadata: this.props.metadata,
-                toggle: this.props.toggle
-            });
-        }
+    componentDidMount() {
+        this.update();
+    }
+
+    componentDidUpdate() {
+        this.update();
     };
 
+    updateScales() {
+        // Calculate limits
+        const allPoints = this.props.points
+            .concat(this.props.bestFitLine);
+        
+        let xMin = d3.min(allPoints, (d) => +d.x * 0.9);
+        let xMax = d3.max(allPoints, (d) => +d.x * 1.1);
+        let yMin = d3.min(allPoints, (d) => +d.y * 0.9);
+        let yMax = d3.max(allPoints, (d) => +d.y * 1.1);
+
+        // Define scales
+        this.xScale = d3.scaleLinear().domain([xMin, xMax]).range([0, this.drawWidth])
+        this.yScale = d3.scaleLinear().domain([yMax, yMin]).range([0, this.drawHeight])
+    }
+    
+    updatePoints() {
+        // Select all circles and bind data
+        let circles = d3.select(this.chartArea).selectAll('circle').data(this.props.points);
+
+        // Use the .enter() method to get your entering elements, and assign their positions
+        circles.enter().append('circle')
+            .merge(circles)
+            .attr('r', (d) => this.state.radius)
+            .attr('fill', this.state.color)
+            .attr('label', (d) => d.label)
+            .transition().duration(500)
+            .attr('cx', (d) => this.xScale(d.x))
+            .attr('cy', (d) => this.yScale(d.y))
+            .style('stroke', "black")
+            .style('stroke-width', (d) => d.selected == true ? "3px" : "0px")
+
+
+        // Use the .exit() and .remove() methods to remove elements that are no longer in the data
+        circles.exit().remove();
+    }
+
+    updateLine() {
+        const line = d3.line()
+            .x((d) => this.xScale(+d.x))
+            .y((d) => this.yScale(+d.y))
+            .curve(d3.curveMonotoneX);
+
+        let bestFitLine = d3.select(this.chartArea)
+            .selectAll('.lin-regress__chart__best-fit-line')
+            .data([this.props.bestFitLine]);
+        
+        bestFitLine.enter().append('path')
+            .merge(bestFitLine)
+            .attr('class', 'lin-regress__chart__best-fit-line')
+            .attr('fill', 'none')
+            .attr('stroke', '#000000')
+            .attr('stroke-width', 3)
+            .transition().duration(500)
+            .attr('d', (d) => line(d))
+    }
+    
+    updateAxes() {
+        let xAxisFunction = d3.axisBottom()
+            .scale(this.xScale)
+            .ticks(5, 's');
+
+        let yAxisFunction = d3.axisLeft()
+            .scale(this.yScale)
+            .ticks(5, 's');
+
+        d3.select(this.xAxis)
+            .call(xAxisFunction);
+
+        d3.select(this.yAxis)
+            .call(yAxisFunction);
+    }
+    
+    update() {
+        this.updateScales();
+        this.updateAxes();
+        this.updatePoints();
+        this.updateLine();
+    }
 
     render() {
         return (
-            <div className='lin-regress__chart'>
-                <Bar
-                    data={getData(this.state.points, this.state.metadata.pts)}
-                    width={400}
-                    options={getOptions(this.state.points, this.state.labels)}
-                />
+            <div className="lin-regress__chart">
+                <svg className="chart" width={this.state.width} height={this.state.height}>
+                    <g ref={(node) => { this.chartArea = node; }}
+                        transform={`translate(${this.state.margin.left}, ${this.state.margin.top})`} />
+
+                    {/* Axes */}
+                    <g ref={(node) => { this.xAxis = node; }}
+                        transform={`translate(${this.state.margin.left}, ${this.state.height - this.state.margin.bottom})`}></g>
+                    <g ref={(node) => { this.yAxis = node; }}
+                        transform={`translate(${this.state.margin.left}, ${this.state.margin.top})`}></g>
+                </svg>
             </div>
-        );
+
+        )
     }
 };

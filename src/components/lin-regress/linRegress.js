@@ -13,7 +13,7 @@ export class LinRegress extends Component {
         this.state = {
             points: [{x: 1, y: 2}, {x: 2, y: 1}, {x: 3, y: 4}],
             metadata: {
-                pts: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
+                bestFitLine: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
                 m: 1,
                 b: 0.33,
                 residual: 0
@@ -52,8 +52,7 @@ export class LinRegress extends Component {
                     />
                     <LinRegressChart
                         points={this.state.points}
-                        metadata={this.state.metadata}
-                        toggle={this.state.toggle}
+                        bestFitLine={this.state.metadata.bestFitLine}
                     />
                 </Container>
                 <hr></hr>
