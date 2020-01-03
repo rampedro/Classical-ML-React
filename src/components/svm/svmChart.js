@@ -32,9 +32,9 @@ export class SVMChart extends Component {
     updateScales() {
         // Calculate limits
         const allPoints = this.props.points.concat(this.props.linePoints);
-        let xMin = d3.min(allPoints, (d) => +d.x * .9);
+        let xMin = d3.min(allPoints, (d) => +d.x * 1.1);
         let xMax = d3.max(allPoints, (d) => +d.x * 1.1);
-        let yMin = d3.min(allPoints, (d) => +d.y * .9);
+        let yMin = d3.min(allPoints, (d) => +d.y * 1.1);
         let yMax = d3.max(allPoints, (d) => +d.y * 1.1);
 
         // Define scales
@@ -83,17 +83,18 @@ export class SVMChart extends Component {
 
     updateLine() {
         const line = d3.line()
-            .x((d) => this.xScale(d.x))
-            .y((d) => this.yScale(d.y))
+            .x((d) => this.xScale(+d.x))
+            .y((d) => this.yScale(+d.y))
             .curve(d3.curveMonotoneX);
-        
-        let svmBoundaryLine = d3.select(this.chartArea).selectAll('path');
-        svmBoundaryLine.enter()
-            .append('path')
-            .merge(svmBoundaryLine)
-            .attr('d', line(this.props.linePoints));
 
-        svmBoundaryLine.exit().remove();
+        d3.select(this.chartArea)
+            .append('path')
+                .datum(this.props.linePoints)
+                .attr('class', 'svm__chart__boundary-line')
+                .attr('fill', 'none')
+                .attr('stroke', '#000000')
+                .attr('stroke-width', 3)
+                .attr('d', line)
     }
     
     updateAxes() {
