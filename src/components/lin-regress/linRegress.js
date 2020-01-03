@@ -3,7 +3,7 @@ import {Points} from './points'
 import {AddPointForm} from './addPointForm';
 import {LinRegressChart} from './linRegressChart';
 import {LinRegressBackground} from './linRegressBackground';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import './linRegress.css';
 
 
@@ -16,7 +16,7 @@ export class LinRegress extends Component {
                 bestFitLine: [{x: 1, y: 1.33}, {x: 3, y: 3.33}],
                 m: 1,
                 b: 0.33,
-                residual: 0
+                residual: 2.67
             },
             toggle: 0
         };
@@ -55,6 +55,13 @@ export class LinRegress extends Component {
                         bestFitLine={this.state.metadata.bestFitLine}
                     />
                 </Container>
+                <Header size='small'>
+                    Slope of Line: {this.state.metadata.m}
+                    <br />
+                    Intercept: {this.state.metadata.b}
+                    <br />
+                    Total Residual: {this.state.metadata.residual}
+                </Header>
                 <hr></hr>
                 <LinRegressBackground />
             </div>
