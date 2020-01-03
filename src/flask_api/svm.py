@@ -1,21 +1,11 @@
 import numpy as np
 from sklearn.svm import SVC
 
-def makeLine(x1, x2, m, b):
-    leftPoint = {'x': x1, 'y': np.round(m*x1 + b, 4)}
-    rightPoint = {'x': x2, 'y': np.round(m*x2 + b, 4)}
+def makeLine(xx, yy):
+    leftPoint = {'x': xx[0], 'y': np.round(yy[0], 4)}
+    rightPoint = {'x': xx[1], 'y': np.round(yy[1], 4)}
     return leftPoint, rightPoint
 
-def transformLine(leftPoint, rightPoint, mean, std):
-    M = np.array([
-        [leftPoint['x'], leftPoint['y']],
-        [rightPoint['x'], rightPoint['y']]
-    ])
-    M = (M + mean) * std
-    newLeftPoint = {'x': M[0, 0], 'y': M[0, 1]}
-    newRightPoint = {'x': M[1, 0], 'y': M[1, 1]}
-
-    return newLeftPoint, newRightPoint
 
 def svm(data, eps=1e-3):
     if len(data['x']) == 0:
@@ -27,9 +17,6 @@ def svm(data, eps=1e-3):
     x = np.array(data["x"], dtype='float')
     y = np.array(data["y"], dtype='float')
     D = np.array([x, y]).T
-    #mean = np.mean(D, axis=0, keepdims=True)
-    #std = np.std(D, axis=0, keepdims=True) + eps
-    #D = (D - mean) / std
     labels = np.array(data["labels"], dtype=np.int32)
     uniqueLabels = np.unique(labels)
     if len(uniqueLabels) != 2:
@@ -47,13 +34,21 @@ def svm(data, eps=1e-3):
     m = -w[0] / (w[1] + eps)
     b = -clf.intercept_[0] / (w[1] + eps)
 
-    x1 = np.floor(np.min(x)) - 1
-    x2 = np.ceil(np.max(x)) + 1
+    xx = np.array([np.floor(np.min(x)) - 1, np.ceil(np.max(x)) + 1])
+    yy = m * xx + b
+
+    margin = 1 / np.sqrt(np.sum(clf.coef_ ** 2))
+    yy_down = yy - np.sqrt(1 + m ** 2) * margin
+    yy_up = yy + np.sqrt(1 + m ** 2) * margin
     
-    leftPoint, rightPoint = makeLine(x1, x2, m, b)
+    leftPoint, rightPoint = makeLine(xx, yy)
+    upperLeft, upperRight = makeLine(xx, yy_up)
+    downLeft, downRight = makeLine(xx, yy_down)
     
     output_data = {
-        "pts": [leftPoint, rightPoint],
+        "boundaryLine": [leftPoint, rightPoint],
+        "upperLine": [upperLeft, upperRight],
+        "lowerLine": [downLeft, downRight],
         "accuracy": f'{acc}%'
     }
 

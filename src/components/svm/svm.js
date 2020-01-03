@@ -13,7 +13,9 @@ export class SVM extends Component {
         this.state = {
             points: [{x: 1, y: 2, label: 1}, {x: 2, y: 1, label: -1}, {x: 3, y: 4, label: 1}],
             metadata: {
-                pts: [{x: 0.0, y: -1}, {x: 4.0, y: 1}],
+                boundaryLine: [{x: 0.0, y: 0.0}, {x: 4.0, y: 3.996}],
+                upperLine: [{x: 0.0, y: 0.9995}, {x: 4.0, y: 4.9955}], 
+                lowerLine: [{x: 0.0, y: -0.9995}, {x: 4.0, y: 2.9965}],
                 accuracy: '100.00%'
             },
             toggle: 0
@@ -50,7 +52,9 @@ export class SVM extends Component {
                     />
                     <SVMChart 
                         points={this.state.points}
-                        linePoints={this.state.metadata.pts}
+                        boundaryLine={this.state.metadata.boundaryLine}
+                        upperLine={this.state.metadata.upperLine}
+                        lowerLine={this.state.metadata.lowerLine}
                     />
                 </Container>
                 <span size='large'>

@@ -31,7 +31,11 @@ export class SVMChart extends Component {
 
     updateScales() {
         // Calculate limits
-        const allPoints = this.props.points.concat(this.props.linePoints);
+        const allPoints = this.props.points
+            .concat(this.props.boundaryLine)
+            .concat(this.props.upperLine)
+            .concat(this.props.lowerLine);
+        
         let xMin = d3.min(allPoints, (d) => +d.x * 1.1);
         let xMax = d3.max(allPoints, (d) => +d.x * 1.1);
         let yMin = d3.min(allPoints, (d) => +d.y * 1.1);
@@ -43,14 +47,6 @@ export class SVMChart extends Component {
     }
     
     updatePoints() {
-        // Define hovers 
-        // Add tip
-        /*
-        let tip = d3Tip.attr('class', 'd3-tip').html(function (d) {
-            return d.label;
-        });
-        */
-
         // Select all circles and bind data
         let circles = d3.select(this.chartArea).selectAll('circle').data(this.props.points);
 
@@ -65,8 +61,6 @@ export class SVMChart extends Component {
                     return "blue";
             })
             .attr('label', (d) => d.label)
-            //.on('mouseover', tip.show)
-            //.on('mouseout', tip.hide)
             .transition().duration(500)
             .attr('cx', (d) => this.xScale(d.x))
             .attr('cy', (d) => this.yScale(d.y))
@@ -76,9 +70,6 @@ export class SVMChart extends Component {
 
         // Use the .exit() and .remove() methods to remove elements that are no longer in the data
         circles.exit().remove();
-
-        // Add hovers using the d3-tip library        
-        //d3.select(this.chartArea).call(tip);
     }
 
     updateLine() {
@@ -87,14 +78,20 @@ export class SVMChart extends Component {
             .y((d) => this.yScale(+d.y))
             .curve(d3.curveMonotoneX);
 
-        d3.select(this.chartArea)
-            .append('path')
-                .datum(this.props.linePoints)
-                .attr('class', 'svm__chart__boundary-line')
-                .attr('fill', 'none')
-                .attr('stroke', '#000000')
-                .attr('stroke-width', 3)
-                .attr('d', line)
+        let svmLine = d3.select(this.chartArea).selectAll('.svm__chart__boundary-line');
+        if (svmLine.size() === 0) {
+            d3.select(this.chartArea)
+                .append('path')
+                    .datum(this.props.boundaryLine)
+                    .attr('class', 'svm__chart__boundary-line')
+                    .attr('fill', 'none')
+                    .attr('stroke', '#000000')
+                    .attr('stroke-width', 3)
+                    .attr('d', line);
+        } else {
+            svmLine.transition().duration(500)
+                .attr('d', line(this.props.boundaryLine));
+        }
     }
     
     updateAxes() {
