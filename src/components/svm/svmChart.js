@@ -73,25 +73,32 @@ export class SVMChart extends Component {
     }
 
     updateLine() {
+        const allPoints = [this.props.boundaryLine, this.props.upperLine, this.props.lowerLine];
+
         const line = d3.line()
             .x((d) => this.xScale(+d.x))
             .y((d) => this.yScale(+d.y))
             .curve(d3.curveMonotoneX);
 
-        let svmLine = d3.select(this.chartArea).selectAll('.svm__chart__boundary-line');
-        if (svmLine.size() === 0) {
-            d3.select(this.chartArea)
-                .append('path')
-                    .datum(this.props.boundaryLine)
-                    .attr('class', 'svm__chart__boundary-line')
-                    .attr('fill', 'none')
-                    .attr('stroke', '#000000')
-                    .attr('stroke-width', 3)
-                    .attr('d', line);
-        } else {
-            svmLine.transition().duration(500)
-                .attr('d', line(this.props.boundaryLine));
-        }
+        let svmLines = d3.select(this.chartArea)
+            .selectAll('path')
+            .data(allPoints);
+        
+        svmLines.enter().append('path')
+            .merge(svmLines)
+            .attr('class', (_, i) => {
+                if (i === 0)
+                    return 'svm__chart__boundary-line';
+                else if (i === 1)
+                    return 'svm__chart__upper-line dashed';
+                else
+                    return 'svm__chart__lower-line dashed';
+            })
+            .attr('fill', 'none')
+            .attr('stroke', '#000000')
+            .attr('stroke-width', 3)
+            .transition().duration(500)
+            .attr('d', (d) => line(d))
     }
     
     updateAxes() {

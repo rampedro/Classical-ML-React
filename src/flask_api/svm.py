@@ -8,20 +8,17 @@ def makeLine(xx, yy):
 
 
 def svm(data, eps=1e-3):
-    if len(data['x']) == 0:
-        return {
-            "pts": [{"x": 0, "y": 0}, {"x": 0, "y": 0}],
-            "accuracy": 'N/A'
-        }
-
     x = np.array(data["x"], dtype='float')
     y = np.array(data["y"], dtype='float')
     D = np.array([x, y]).T
     labels = np.array(data["labels"], dtype=np.int32)
     uniqueLabels = np.unique(labels)
     if len(uniqueLabels) != 2:
+        zero = {'x': 0, 'y': 0}
         return {
-            "pts": [{"x": 0, "y": 0}, {"x": 0, "y": 0}],
+            "boundaryLine": [zero] * 2,
+            "upperLine": [zero] * 2,
+            "lowerLine": [zero] * 2,
             "accuracy": 'N/A'
         }
 
