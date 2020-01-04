@@ -30,7 +30,6 @@ export class SVMChart extends Component {
     };
 
     updateScales() {
-        // Calculate limits
         const allPoints = this.props.points
             .concat(this.props.boundaryLine)
             .concat(this.props.upperLine)
@@ -41,21 +40,18 @@ export class SVMChart extends Component {
         let yMin = d3.min(allPoints, (d) => +d.y * 1.1);
         let yMax = d3.max(allPoints, (d) => +d.y * 1.1);
 
-        // Define scales
         this.xScale = d3.scaleLinear().domain([xMin, xMax]).range([0, this.drawWidth])
         this.yScale = d3.scaleLinear().domain([yMax, yMin]).range([0, this.drawHeight])
     }
     
     updatePoints() {
-        // Select all circles and bind data
         let circles = d3.select(this.chartArea).selectAll('circle').data(this.props.points);
 
-        // Use the .enter() method to get your entering elements, and assign their positions
         circles.enter().append('circle')
             .merge(circles)
             .attr('r', (d) => this.state.radius)
             .attr('fill', (d) => {
-                if (d.label == 1)
+                if (d.label === 1)
                     return "red";
                 else
                     return "blue";
@@ -64,15 +60,11 @@ export class SVMChart extends Component {
             .transition().duration(500)
             .attr('cx', (d) => this.xScale(d.x))
             .attr('cy', (d) => this.yScale(d.y))
-            .style('stroke', "black")
-            .style('stroke-width', (d) => d.selected == true ? "3px" : "0px")
 
-
-        // Use the .exit() and .remove() methods to remove elements that are no longer in the data
         circles.exit().remove();
     }
 
-    updateLine() {
+    updateLines() {
         const allPoints = [this.props.boundaryLine, this.props.upperLine, this.props.lowerLine];
 
         const line = d3.line()
@@ -119,7 +111,7 @@ export class SVMChart extends Component {
         this.updateScales();
         this.updateAxes();
         this.updatePoints();
-        this.updateLine();
+        this.updateLines();
     }
 
     render() {
