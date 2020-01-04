@@ -32,3 +32,9 @@
 .dashed {
     stroke-dasharray: 5,5;
 }
+
+.svm-image {
+    margin: auto;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
