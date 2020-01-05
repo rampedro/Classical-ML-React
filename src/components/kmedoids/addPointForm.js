@@ -8,7 +8,7 @@ function validNumber(str) {
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-export async function getMetadata(points, k) {
+export async function getMetadata(points, k, metric) {
     const x = [];
     const y = [];
     points.map(point => {
@@ -16,7 +16,7 @@ export async function getMetadata(points, k) {
         y.push(point.y);
     });
     
-    const response = await fetch('/kmeans', {
+    const response = await fetch('/kmedoids', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -24,7 +24,8 @@ export async function getMetadata(points, k) {
         body: JSON.stringify({
             'x': x,
             'y': y,
-            'k': k
+            'k': k,
+            'metric': metric
         })
     });
 
@@ -49,19 +50,20 @@ export class AddPointForm extends Component {
 
     async componentDidUpdate(prevProps) {
         if (prevProps.points.length !== this.props.points.length
-            || prevProps.k !== this.props.k) {
+            || prevProps.k !== this.props.k
+            || prevProps.metric !== this.props.metric) {
             this.setState({
                 points: this.props.points
             });
 
-            const promise = getMetadata(this.props.points, this.props.k);
+            const promise = getMetadata(this.props.points, this.props.k, this.props.metric);
             promise.then(newData => this.state.updateData(newData));
         }
     };
 
     render() {
         return (
-            <div className='kmeans__form'>
+            <div className='kmedoids__form'>
                 <h2><u>Input Point</u>:</h2>
                 <Form className='xy-form'>
                     <header className="xy-form__row">

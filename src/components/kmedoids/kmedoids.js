@@ -1,0 +1,87 @@
+import React, {Component} from 'react';
+import {Points} from './points'
+import {AddPointForm} from './addPointForm';
+import {KMedoidsChart} from './kmedoidsChart';
+import {KMedoidsBackground} from './kmedoidsBackground';
+import {KMedoidsSlider} from './kmedoidsSlider';
+import { Container } from 'semantic-ui-react';
+import './kmedoids.css';
+
+
+const colors = [
+    'red',
+    'green',
+    'blue',
+    'orange',
+    'green',
+    'sienna',
+    'peachpuff',
+    'purple',
+    'pink',
+    'turquoise'
+];
+
+export class KMedoids extends Component {
+    constructor() {
+        super();
+        this.state = {
+            points: [{x: 1, y: 2, label: 0}, {x: 2, y: 1, label: 0}, {x: 3, y: 4, label: 0}],
+            k: 1,
+            centroids: [{x: 2.0, y: 2.3333333333333335, label: 0}],
+            metric: 'euclidean', 
+            toggle: 0
+        };
+    };
+
+    render() {
+        return (
+            <div>
+                <Container className="kmedoids">
+                    <AddPointForm 
+                        points={this.state.points}
+                        onNewPoint={
+                            point => this.setState({
+                                points: [...this.state.points, point]
+                            })
+                        }
+                        updateData={
+                            outputData => this.setState({
+                                centroids: outputData.centroids,
+                                points: outputData.points,
+                                toggle: (this.state.toggle + 1) % 2
+                            })
+                        }
+                        k={this.state.k}
+                        metric={this.state.metric}
+                    />
+                    <KMedoidsSlider 
+                        k={this.state.k}
+                        updateK={
+                            newK => this.setState({
+                                k: newK
+                            })
+                        }
+                        maxColors={colors.length}
+                    />
+                    <Points 
+                        points={this.state.points}
+                        toggle={this.state.toggle}
+                        deletePoint={
+                            i => this.setState({
+                                    points: this.state.points.filter((_, idx) => i !== idx),
+                                    toggle: (this.state.toggle + 1) % 2
+                                })
+                        }
+                    />
+                    <KMedoidsChart 
+                        points={this.state.points}
+                        centroids={this.state.centroids}
+                        colors={colors}
+                    />
+                </Container>
+                <hr></hr>
+                <KMedoidsBackground />
+            </div>
+        );
+    }
+};
