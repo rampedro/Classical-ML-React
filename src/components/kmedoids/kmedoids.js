@@ -4,6 +4,7 @@ import {AddPointForm} from './addPointForm';
 import {KMedoidsChart} from './kmedoidsChart';
 import {KMedoidsBackground} from './kmedoidsBackground';
 import {KMedoidsSlider} from './kmedoidsSlider';
+import {KMedoidsDropdown} from './kmedoidsDropdown';
 import { Container } from 'semantic-ui-react';
 import './kmedoids.css';
 
@@ -21,13 +22,22 @@ const colors = [
     'turquoise'
 ];
 
+const metrics = [
+    "cosine", 
+    "manhattan", // L1
+    "euclidean", // L2
+    "chebyshev", 
+    "hamming", 
+    "jaccard"
+];
+
 export class KMedoids extends Component {
     constructor() {
         super();
         this.state = {
-            points: [{x: 1, y: 2, label: 0}, {x: 2, y: 1, label: 0}, {x: 3, y: 4, label: 0}],
+            points: [{x: 1.0, y: 2.0, label: 0}, {x: 2.0, y: 1.0, label: 0}, {x: 3.0, y: 4.0, label: 0}, {x: -1.0, y: 2.0, label: 0}],
             k: 1,
-            centroids: [{x: 2.0, y: 2.3333333333333335, label: 0}],
+            centroids: [{x: 1.0, y: 2.0, label: 0}], 
             metric: 'euclidean', 
             toggle: 0
         };
@@ -52,6 +62,15 @@ export class KMedoids extends Component {
                             })
                         }
                         k={this.state.k}
+                        metric={this.state.metric}
+                    />
+                    <KMedoidsDropdown 
+                        updateMetric={
+                            newMetric => this.setState({
+                                metric: newMetric
+                            })
+                        }
+                        metrics={metrics}
                         metric={this.state.metric}
                     />
                     <KMedoidsSlider 
