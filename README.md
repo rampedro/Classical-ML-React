@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
   
-Before you run the react app, you need to do the following:
+Before you run the React app, you need to do the following:
 1) Install the following Python 3 packages:
     - sklearn
     - numpy
