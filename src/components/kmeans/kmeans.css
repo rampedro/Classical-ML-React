@@ -1,6 +1,6 @@
 .kmeans {
     display: grid !important;
-    grid-template-rows: 230px 180px;
+    grid-template-rows: 180px 180px;
     grid-template-columns: repeat(4, 250px);
     grid-gap: 15px;
     padding: 15px;
