@@ -4,7 +4,8 @@ Before you run the react app, you need to do the following:
 1) Install the following Python 3 packages:
     - sklearn
     - numpy
-2) Run the Flask backend (```src/flask_api```) with ```python3 app.py```.
+2) Run `npm install --save` to install all necessary React packages.
+3) Run the Flask backend (`src/flask_api`) with `python3 app.py`.
 
 ## Available Scripts
 
