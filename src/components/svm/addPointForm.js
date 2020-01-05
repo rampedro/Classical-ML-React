@@ -20,7 +20,7 @@ function validNumber(str) {
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-async function getMetadata(points) {
+export async function getMetadata(points, c) {
     const x = [];
     const y = [];
     const labels = [];
@@ -38,7 +38,8 @@ async function getMetadata(points) {
         body: JSON.stringify({
             'x': x,
             'y': y,
-            'labels': labels
+            'labels': labels,
+            'c': c
         })
     });
 
@@ -62,12 +63,14 @@ export class AddPointForm extends Component {
     };
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.points.length !== this.props.points.length) {
+        if (prevProps.points.length !== this.props.points.length
+            || prevProps.c !== this.props.c) {
             this.setState({
-                points: this.props.points
+                points: this.props.points,
+                c: this.props.c
             });
 
-            const promise = getMetadata(this.props.points);
+            const promise = getMetadata(this.props.points, this.props.c);
             promise.then(metadata => this.state.updateMetadata(metadata));
         }
     };

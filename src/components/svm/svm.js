@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Points} from './points'
-import {AddPointForm} from './addPointForm';
+import {AddPointForm, getMetadata} from './addPointForm';
 import {SVMChart} from './svmChart';
 import {SVMBackground} from './svmBackground';
+import {SVMSlider} from './svmSlider';
 import { Container, Header } from 'semantic-ui-react';
 import './svm.css';
 
@@ -12,6 +13,7 @@ export class SVM extends Component {
         super();
         this.state = {
             points: [{x: 1, y: 2, label: 1}, {x: 2, y: 1, label: -1}, {x: 3, y: 4, label: 1}],
+            c: 1,
             metadata: {
                 boundaryLine: [{x: 0.0, y: 0.0}, {x: 4.0, y: 3.996}],
                 upperLine: [{x: 0.0, y: 0.9995}, {x: 4.0, y: 4.9955}], 
@@ -38,6 +40,15 @@ export class SVM extends Component {
                             newMetadata => this.setState({
                                 metadata: newMetadata,
                                 toggle: (this.state.toggle + 1) % 2
+                            })
+                        }
+                        c={this.state.c}
+                    />
+                    <SVMSlider 
+                        c={this.state.c}
+                        updateC={
+                            newC => this.setState({
+                                c: newC
                             })
                         }
                     />

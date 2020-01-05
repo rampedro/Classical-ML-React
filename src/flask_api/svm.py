@@ -27,6 +27,7 @@ def getColors(clf, xx, yy_up, yy_down):
 def svm(data, eps=1e-3):
     x = np.array(data["x"], dtype='float')
     y = np.array(data["y"], dtype='float')
+    c = float(data['c'])
     D = np.array([x, y]).T
     labels = np.array(data["labels"], dtype=np.int32)
     uniqueLabels = np.unique(labels)
@@ -40,7 +41,7 @@ def svm(data, eps=1e-3):
             "accuracy": 'N/A'
         }
 
-    clf = SVC(kernel='linear')
+    clf = SVC(kernel='linear', C=c)
     clf.fit(D, labels)
     acc = 100 * np.sum(clf.predict(D) == labels) / labels.shape[0]
     acc = np.round(acc, 2)
