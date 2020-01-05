@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Points} from './points'
-import {AddPointForm, getMetadata} from './addPointForm';
+import {AddPointForm} from './addPointForm';
 import {SVMChart} from './svmChart';
 import {SVMBackground} from './svmBackground';
 import {SVMSlider} from './svmSlider';

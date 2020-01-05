@@ -2,35 +2,21 @@ import React, {Component} from 'react';
 import {Form, Input, Dropdown, Button} from 'semantic-ui-react';
 import './addPointForm.css';
 
-const options = [
-    {
-        key: '+1',
-        text: 'Red',
-        value: 1
-    },
-    {
-        key: '-1',
-        text: 'Blue',
-        value: -1
-    }
-]
 
 function validNumber(str) {
     let trimmed = str.trim();
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-export async function getMetadata(points, c) {
+export async function getMetadata(points, k) {
     const x = [];
     const y = [];
-    const labels = [];
     points.map(point => {
         x.push(point.x);
         y.push(point.y);
-        labels.push(point.label);
     });
     
-    const response = await fetch('/svm', {
+    const response = await fetch('/kmeans', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -38,8 +24,7 @@ export async function getMetadata(points, c) {
         body: JSON.stringify({
             'x': x,
             'y': y,
-            'labels': labels,
-            'c': c
+            'k': k
         })
     });
 
@@ -57,20 +42,20 @@ export class AddPointForm extends Component {
             xStatus: '',
             yStatus: '',
             onNewPoint: this.props.onNewPoint,
-            updateMetadata: this.props.updateMetadata,
+            updateData: this.props.updateData,
             points: this.props.points
         };
     };
 
     async componentDidUpdate(prevProps) {
         if (prevProps.points.length !== this.props.points.length
-            || prevProps.c !== this.props.c) {
+            || prevProps.k !== this.props.k) {
             this.setState({
                 points: this.props.points
             });
 
-            const promise = getMetadata(this.props.points, this.props.c);
-            promise.then(metadata => this.state.updateMetadata(metadata));
+            const promise = getMetadata(this.props.points, this.props.k);
+            promise.then(newData => this.state.updateData(newData));
         }
     };
 
@@ -109,19 +94,6 @@ export class AddPointForm extends Component {
                                     }}
                             />
                             <span className="xy-form__row__span">{this.state.yStatus}</span>
-                        </Form.Field>
-                    </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <Dropdown   className='xy-form__label'
-                                        placeholder='Label'
-                                        fluid
-                                        selection
-                                        options={options}
-                                        onChange={(_, data) => {
-                                            this.setState({label: data.value});
-                                        }}
-                            />
                         </Form.Field>
                     </header>
                     <Button primary
