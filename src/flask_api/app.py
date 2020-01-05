@@ -1,13 +1,15 @@
 from modules.lin_regress import linRegression
 from modules.svm import svm
 from modules.kmeans import kmeans
+from modules.kmedoids import kmedoids
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 services = {
     'svm': svm,
     'lin_regress': linRegression,
-    'kmeans': kmeans
+    'kmeans': kmeans,
+    'kmedoids': kmedoids
 }
 
 @app.route('/<string:service_name>', methods=['PUT'])
