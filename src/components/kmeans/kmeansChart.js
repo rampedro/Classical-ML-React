@@ -44,7 +44,8 @@ export class KMeansChart extends Component {
     };
 
     updateScales() {
-        const allPoints = this.props.points.concat(this.props.centroids);
+        const allPoints = this.props.points
+            .concat(this.props.centroids);
         
         let xMin = d3.min(allPoints, (d) => properMinScaling(+d.x));
         let xMax = d3.max(allPoints, (d) => properMaxScaling(+d.x));

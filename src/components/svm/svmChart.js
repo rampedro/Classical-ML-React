@@ -2,6 +2,20 @@ import React, {Component} from 'react';
 import * as d3 from 'd3';
 
 
+function properMinScaling(n) {
+    if (n >= 0)
+        return n * 0.9;
+    else
+        return n * 1.1;
+}
+
+function properMaxScaling(n) {
+    if (n >= 0)
+        return n * 1.1;
+    else
+        return n * 0.9;
+}
+
 export class SVMChart extends Component {
     constructor(props) {
         super(props);
@@ -35,10 +49,10 @@ export class SVMChart extends Component {
             .concat(this.props.upperLine)
             .concat(this.props.lowerLine);
         
-        let xMin = d3.min(allPoints, (d) => +d.x * 1.1);
-        let xMax = d3.max(allPoints, (d) => +d.x * 1.1);
-        let yMin = d3.min(allPoints, (d) => +d.y * 1.1);
-        let yMax = d3.max(allPoints, (d) => +d.y * 1.1);
+        let xMin = d3.min(allPoints, (d) => properMinScaling(+d.x));
+        let xMax = d3.max(allPoints, (d) => properMaxScaling(+d.x));
+        let yMin = d3.min(allPoints, (d) => properMinScaling(+d.y));
+        let yMax = d3.max(allPoints, (d) => properMaxScaling(+d.y));
 
         this.xScale = d3.scaleLinear().domain([xMin, xMax]).range([0, this.drawWidth])
         this.yScale = d3.scaleLinear().domain([yMax, yMin]).range([0, this.drawHeight])
