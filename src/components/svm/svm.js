@@ -44,6 +44,11 @@ export class SVM extends Component {
                         }
                         c={this.state.c}
                     />
+                    <Header className='svm__stats'
+                            size='small'
+                    >
+                        SVM Accuracy: {this.state.metadata.accuracy}
+                    </Header>
                     <SVMSlider 
                         c={this.state.c}
                         updateC={
@@ -70,9 +75,6 @@ export class SVM extends Component {
                         colors={this.state.metadata.colors}
                     />
                 </Container>
-                <Header size='small'>
-                    SVM Accuracy: {this.state.metadata.accuracy}
-                </Header>
                 <hr></hr>
                 <SVMBackground />
             </div>
