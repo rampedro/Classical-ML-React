@@ -1,4 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+  
+Before you run the react app, you need to do the following:
+1) Install the following Python 3 packages:
+    - sklearn
+    - numpy
+2) Run the Flask backend (```src/flask_api```) with ```python3 app.py```.
 
 ## Available Scripts
 
