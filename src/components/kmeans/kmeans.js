@@ -4,7 +4,7 @@ import {AddPointForm} from './addPointForm';
 import {KMeansChart} from './kmeansChart';
 import {KMeansBackground} from './kmeansBackground';
 import {KMeansSlider} from './kmeansSlider';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import './kmeans.css';
 
 
@@ -40,7 +40,7 @@ export class KMeans extends Component {
                 >
                     K-Means
                 </Header>
-                <Container className="kmeans">
+                <div className="kmeans">
                     <AddPointForm 
                         points={this.state.points}
                         onNewPoint={
@@ -81,7 +81,7 @@ export class KMeans extends Component {
                         centroids={this.state.centroids}
                         colors={colors}
                     />
-                </Container>
+                </div>
                 <hr></hr>
                 <KMeansBackground />
             </div>

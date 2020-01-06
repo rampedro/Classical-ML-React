@@ -15,7 +15,7 @@ export default class App extends Component {
             <BrowserRouter>
                 <React.Fragment>
                     <NavBar />
-                    <Container className='main-content'>
+                    <div className='main-content'>
                         <Switch>
                             <Redirect from='/' to='/linear-regression' exact />
                             <Route path='/linear-regression' component={LinRegress} />
@@ -23,7 +23,7 @@ export default class App extends Component {
                             <Route path='/k-means' component={KMeans} />
                             <Route path='/k-medoids' component={KMedoids} />
                         </Switch>
-                    </Container>
+                    </div>
                 </React.Fragment>
             </BrowserRouter>
         );

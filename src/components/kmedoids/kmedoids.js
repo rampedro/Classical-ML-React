@@ -5,7 +5,7 @@ import {KMedoidsChart} from './kmedoidsChart';
 import {KMedoidsBackground} from './kmedoidsBackground';
 import {KMedoidsSlider} from './kmedoidsSlider';
 import {KMedoidsDropdown} from './kmedoidsDropdown';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import './kmedoids.css';
 
 
@@ -51,7 +51,7 @@ export class KMedoids extends Component {
                 >
                     K-Medoids
                 </Header>
-                <Container className="kmedoids">
+                <div className="kmedoids">
                     <AddPointForm 
                         points={this.state.points}
                         onNewPoint={
@@ -102,7 +102,7 @@ export class KMedoids extends Component {
                         centroids={this.state.centroids}
                         colors={colors}
                     />
-                </Container>
+                </div>
                 <hr></hr>
                 <KMedoidsBackground />
             </div>

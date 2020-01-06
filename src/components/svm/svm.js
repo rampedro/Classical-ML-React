@@ -4,7 +4,7 @@ import {AddPointForm} from './addPointForm';
 import {SVMChart} from './svmChart';
 import {SVMBackground} from './svmBackground';
 import {SVMSlider} from './svmSlider';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import './svm.css';
 
 
@@ -33,7 +33,7 @@ export class SVM extends Component {
                 >
                     Support Vector Machine
                 </Header>
-                <Container className="svm">
+                <div className="svm">
                     <AddPointForm 
                         points={this.state.points}
                         onNewPoint={
@@ -79,7 +79,7 @@ export class SVM extends Component {
                         lowerLine={this.state.metadata.lowerLine}
                         colors={this.state.metadata.colors}
                     />
-                </Container>
+                </div>
                 <hr></hr>
                 <SVMBackground />
             </div>

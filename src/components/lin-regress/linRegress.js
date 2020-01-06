@@ -3,7 +3,7 @@ import {Points} from './points'
 import {AddPointForm} from './addPointForm';
 import {LinRegressChart} from './linRegressChart';
 import {LinRegressBackground} from './linRegressBackground';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import './linRegress.css';
 
 
@@ -29,7 +29,7 @@ export class LinRegress extends Component {
                         size='huge'>
                     K-Medoids
                 </Header>
-                <Container className="lin-regress">
+                <div className="lin-regress">
                     <AddPointForm 
                         points={this.state.points}
                         onNewPoint={
@@ -58,7 +58,7 @@ export class LinRegress extends Component {
                         points={this.state.points}
                         bestFitLine={this.state.metadata.bestFitLine}
                     />
-                </Container>
+                </div>
                 <Header size='small'>
                     Slope of Line: {this.state.metadata.m}
                     <br />
