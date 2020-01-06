@@ -28,6 +28,11 @@ export class SVM extends Component {
     render() {
         return (
             <div>
+                <Header className='title'
+                        size='huge'
+                >
+                    Support Vector Machine
+                </Header>
                 <Container className="svm">
                     <AddPointForm 
                         points={this.state.points}

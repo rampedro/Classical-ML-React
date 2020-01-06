@@ -4,7 +4,7 @@ import {AddPointForm} from './addPointForm';
 import {KMeansChart} from './kmeansChart';
 import {KMeansBackground} from './kmeansBackground';
 import {KMeansSlider} from './kmeansSlider';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import './kmeans.css';
 
 
@@ -35,6 +35,11 @@ export class KMeans extends Component {
     render() {
         return (
             <div>
+                <Header className='title'
+                        size='huge'
+                >
+                    K-Means
+                </Header>
                 <Container className="kmeans">
                     <AddPointForm 
                         points={this.state.points}

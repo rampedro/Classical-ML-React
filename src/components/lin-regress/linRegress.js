@@ -25,6 +25,10 @@ export class LinRegress extends Component {
     render() {
         return (
             <div>
+                <Header className='title'
+                        size='huge'>
+                    K-Medoids
+                </Header>
                 <Container className="lin-regress">
                     <AddPointForm 
                         points={this.state.points}

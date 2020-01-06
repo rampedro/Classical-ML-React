@@ -5,7 +5,7 @@ import {KMedoidsChart} from './kmedoidsChart';
 import {KMedoidsBackground} from './kmedoidsBackground';
 import {KMedoidsSlider} from './kmedoidsSlider';
 import {KMedoidsDropdown} from './kmedoidsDropdown';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import './kmedoids.css';
 
 
@@ -46,6 +46,11 @@ export class KMedoids extends Component {
     render() {
         return (
             <div>
+                <Header className='title'
+                        size='huge'
+                >
+                    K-Medoids
+                </Header>
                 <Container className="kmedoids">
                     <AddPointForm 
                         points={this.state.points}
