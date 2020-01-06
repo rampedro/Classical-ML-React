@@ -27,7 +27,7 @@ export class LinRegress extends Component {
             <div>
                 <Header className='title'
                         size='huge'>
-                    K-Medoids
+                    Linear Regression
                 </Header>
                 <div className="lin-regress">
                     <AddPointForm 
@@ -58,14 +58,16 @@ export class LinRegress extends Component {
                         points={this.state.points}
                         bestFitLine={this.state.metadata.bestFitLine}
                     />
+                    <Header className='lin-regress__stats'
+                            size='small'
+                    >
+                        Slope of Line: {this.state.metadata.m}
+                        <br />
+                        Intercept: {this.state.metadata.b}
+                        <br />
+                        Total Residual: {this.state.metadata.residual}
+                    </Header>
                 </div>
-                <Header size='small'>
-                    Slope of Line: {this.state.metadata.m}
-                    <br />
-                    Intercept: {this.state.metadata.b}
-                    <br />
-                    Total Residual: {this.state.metadata.residual}
-                </Header>
                 <hr></hr>
                 <LinRegressBackground />
             </div>

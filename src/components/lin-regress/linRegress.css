@@ -1,6 +1,6 @@
 .lin-regress {
     display: grid !important;
-    grid-template-rows: repeat(2, 175px);
+    grid-template-rows: 175px 175px;
     grid-template-columns: repeat(4, 250px);
     grid-gap: 15px;
     padding: 15px;
@@ -27,4 +27,12 @@
 .lin-regress__background {
     padding-top: 25px;
     padding-bottom: 50px;
+}
+
+.lin-regress__stats {
+    display: flex;
+    align-items: top;
+    justify-content: left;
+    grid-row: 3/4;
+    grid-column: 1/2;
 }
