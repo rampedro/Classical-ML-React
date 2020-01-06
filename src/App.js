@@ -13,16 +13,18 @@ export default class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Container>
+                <React.Fragment>
                     <NavBar />
-                    <Switch>
-                        <Redirect from='/' to='/linear-regression' exact />
-                        <Route path='/linear-regression' component={LinRegress} />
-                        <Route path='/svm' component={SVM} />
-                        <Route path='/k-means' component={KMeans} />
-                        <Route path='/k-medoids' component={KMedoids} />
-                    </Switch>
-                </Container>
+                    <Container className='main-content'>
+                        <Switch>
+                            <Redirect from='/' to='/linear-regression' exact />
+                            <Route path='/linear-regression' component={LinRegress} />
+                            <Route path='/svm' component={SVM} />
+                            <Route path='/k-means' component={KMeans} />
+                            <Route path='/k-medoids' component={KMedoids} />
+                        </Switch>
+                    </Container>
+                </React.Fragment>
             </BrowserRouter>
         );
     }

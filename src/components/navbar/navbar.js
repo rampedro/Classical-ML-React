@@ -10,7 +10,7 @@ export const NavBar = props => {
                     Classical ML React
                 </h1>
             </div>
-            <nav className='navbar__item'>
+            <nav className='navbar__items'>
                 <ul>
                     <li>
                         <NavLink to='/linear-regression'>Linear Regression</NavLink>
