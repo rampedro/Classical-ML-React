@@ -80,6 +80,17 @@ export const SVMBackground = _ => {
                 quadratic programming or numerical methods such as 
                 stochastic gradient descent.
             </p>
+            <Header size='large'>References:</Header>
+            <ul>
+                <li>
+                    <a 
+                        href='https://en.wikipedia.org/wiki/Support-vector_machine' 
+                        target="_blank"
+                    >
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
         </div>
     );
 }

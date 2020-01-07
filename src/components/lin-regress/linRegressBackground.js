@@ -117,9 +117,22 @@ export const LinRegressBackground = _ => {
                     &\implies X^{T} X \textbf{w} = X^{T} \textbf{y}
                 \end{aligned}'
             />
-            where the above line is the over-determined linear system 
-            we ended up constructing previously. The above line often referred to as
-            linear least squares (or the Normal Equations).
+            <p>
+                where the above line is the over-determined linear system 
+                we ended up constructing previously. The above line often referred to as
+                linear least squares (or the Normal Equations).
+            </p>
+            <Header size='large'>References:</Header>
+            <ul>
+                <li>
+                    <a 
+                        href='https://en.wikipedia.org/wiki/Support-vector_machine' 
+                        target="_blank"
+                    >
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
         </div>
     );
 }
