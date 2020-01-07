@@ -1,4 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+It is deployed on EC2 with http://3.19.232.111/.  
   
 Before you run the React app, you need to do the following:
 1) Install the following Python 3 packages:
