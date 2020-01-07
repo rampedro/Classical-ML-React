@@ -14,6 +14,12 @@
     font-size: 1.5rem;
 }
 
+.navbar__icon a:hover,
+.navbar__icon a:active,
+.navbar__icon a.active {
+    color: black;
+}
+
 .navbar__items {
     margin-left: 1.5rem;
 }

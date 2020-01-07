@@ -7,7 +7,7 @@ export const NavBar = _ => {
         <header className='navbar'>
             <div className='navbar__icon'>
                 <h1>
-                    Classical ML React
+                    <NavLink to='/'>Classical ML React</NavLink>
                 </h1>
             </div>
             <nav className='navbar__items'>
