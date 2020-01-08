@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
+import {PROXY_URL} from './../misc/proxyURL';
 import './addPointForm.css';
 
 
@@ -16,8 +17,8 @@ export async function getMetadata(points, k) {
         y.push(point.y);
     });
     
-    const response = await fetch('/kmeans', {
-        method: 'PUT',
+    const response = await fetch(PROXY_URL + '/kmeans', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },

@@ -3,6 +3,7 @@ from modules.svm import svm
 from modules.kmeans import kmeans
 from modules.kmedoids import kmedoids
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
 services = {
@@ -12,7 +13,11 @@ services = {
     'kmedoids': kmedoids
 }
 
-@app.route('/<string:service_name>', methods=['PUT'])
+cors = CORS(app, resources={
+    r'/{}'.format(service): {"origins": "*"} for service in services
+})
+
+@app.route('/<string:service_name>', methods=['POST'])
 def service(service_name):
     try:
         service_func = services[service_name]

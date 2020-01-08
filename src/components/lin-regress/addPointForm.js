@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
+import {PROXY_URL} from './../misc/proxyURL';
 import './addPointForm.css';
 
 function validNumber(str) {
@@ -15,8 +16,8 @@ async function getMetadata(points) {
         y.push(point.y);
     });
     
-    const response = await fetch('/lin_regress', {
-        method: 'PUT',
+    const response = await fetch(PROXY_URL + '/lin_regress', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },

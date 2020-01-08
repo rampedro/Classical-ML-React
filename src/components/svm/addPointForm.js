@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Input, Dropdown, Button} from 'semantic-ui-react';
+import {PROXY_URL} from './../misc/proxyURL';
 import './addPointForm.css';
 
 const options = [
@@ -30,8 +31,8 @@ export async function getMetadata(points, c) {
         labels.push(point.label);
     });
     
-    const response = await fetch('/svm', {
-        method: 'PUT',
+    const response = await fetch(PROXY_URL + '/svm', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
