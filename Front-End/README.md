@@ -1,12 +1,4 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
-  
-Before you run the React app, you need to do the following:
-1) Install the following Python 3 packages:
-    - sklearn
-    - numpy
-    - [scikit-learn-extra](https://github.com/scikit-learn-contrib/scikit-learn-extra)
-2) Run `npm install --save` to install all necessary React packages.
-3) Run the Flask backend (`src/flask_api`) with `python3 app.py`.
 
 ## Available Scripts
 
