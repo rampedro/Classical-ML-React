@@ -1,23 +1,37 @@
 import React, {Component} from 'react';
-import {Form, Input, Button} from 'semantic-ui-react';
-import {PROXY_URL} from './../misc/proxyURL';
+import {Form, Input, Dropdown, Button} from 'semantic-ui-react';
+import {PROXY_URL} from '../misc/proxyURL';
 import './addPointForm.css';
 
+const options = [
+    {
+        key: '+1',
+        text: 'Red',
+        value: 1
+    },
+    {
+        key: '-1',
+        text: 'Blue',
+        value: -1
+    }
+]
 
 function validNumber(str) {
     let trimmed = str.trim();
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-export async function getMetadata(points, k, metric) {
+export async function getMetadata(points, c) {
     const x = [];
     const y = [];
+    const labels = [];
     points.map(point => {
         x.push(point.x);
         y.push(point.y);
+        labels.push(point.label);
     });
     
-    const response = await fetch(PROXY_URL + '/kmedoids', {
+    const response = await fetch(PROXY_URL + '/svm', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -25,8 +39,8 @@ export async function getMetadata(points, k, metric) {
         body: JSON.stringify({
             'x': x,
             'y': y,
-            'k': k,
-            'metric': metric
+            'labels': labels,
+            'c': c
         })
     });
 
@@ -44,27 +58,26 @@ export class AddPointForm extends Component {
             xStatus: '',
             yStatus: '',
             onNewPoint: this.props.onNewPoint,
-            updateData: this.props.updateData,
+            updateMetadata: this.props.updateMetadata,
             points: this.props.points
         };
     };
 
     async componentDidUpdate(prevProps) {
         if (prevProps.points.length !== this.props.points.length
-            || prevProps.k !== this.props.k
-            || prevProps.metric !== this.props.metric) {
+            || prevProps.c !== this.props.c) {
             this.setState({
                 points: this.props.points
             });
 
-            const promise = getMetadata(this.props.points, this.props.k, this.props.metric);
-            promise.then(newData => this.state.updateData(newData));
+            const promise = getMetadata(this.props.points, this.props.c);
+            promise.then(metadata => this.state.updateMetadata(metadata));
         }
     };
 
     render() {
         return (
-            <div className='kmedoids__form'>
+            <div className='svm__form'>
                 <h2><u>Input Point</u>:</h2>
                 <Form className='xy-form'>
                     <header className="xy-form__row">
@@ -97,6 +110,19 @@ export class AddPointForm extends Component {
                                     }}
                             />
                             <span className="xy-form__row__span">{this.state.yStatus}</span>
+                        </Form.Field>
+                    </header>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <Dropdown   className='xy-form__label'
+                                        placeholder='Label'
+                                        fluid
+                                        selection
+                                        options={options}
+                                        onChange={(_, data) => {
+                                            this.setState({label: data.value});
+                                        }}
+                            />
                         </Form.Field>
                     </header>
                     <Button primary

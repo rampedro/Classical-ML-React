@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
-import {PROXY_URL} from './../misc/proxyURL';
+import {PROXY_URL} from '../misc/proxyURL';
 import './addPointForm.css';
+
 
 function validNumber(str) {
     let trimmed = str.trim();
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-async function getMetadata(points) {
+export async function getMetadata(points, k) {
     const x = [];
     const y = [];
     points.map(point => {
@@ -16,14 +17,15 @@ async function getMetadata(points) {
         y.push(point.y);
     });
     
-    const response = await fetch(PROXY_URL + '/lin_regress', {
+    const response = await fetch(PROXY_URL + '/kmeans', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             'x': x,
-            'y': y
+            'y': y,
+            'k': k
         })
     });
 
@@ -37,28 +39,30 @@ export class AddPointForm extends Component {
         this.state = {
             x: '',
             y: '',
+            label: null,
             xStatus: '',
             yStatus: '',
             onNewPoint: this.props.onNewPoint,
-            updateMetadata: this.props.updateMetadata,
+            updateData: this.props.updateData,
             points: this.props.points
         };
     };
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.points.length !== this.props.points.length) {
+        if (prevProps.points.length !== this.props.points.length
+            || prevProps.k !== this.props.k) {
             this.setState({
                 points: this.props.points
             });
 
-            const promise = getMetadata(this.props.points);
-            promise.then(metadata => this.state.updateMetadata(metadata));
+            const promise = getMetadata(this.props.points, this.props.k);
+            promise.then(newData => this.state.updateData(newData));
         }
     };
 
     render() {
         return (
-            <div className='lin-regress__form'>
+            <div className='kmeans__form'>
                 <h2><u>Input Point</u>:</h2>
                 <Form className='xy-form'>
                     <header className="xy-form__row">
@@ -97,7 +101,12 @@ export class AddPointForm extends Component {
                             className="add-point"
                             disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
                             onClick={async () => {
-                                this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});
+                                let newPoint = {
+                                    x: Number(this.state.x), 
+                                    y: Number(this.state.y),
+                                    label: Number(this.state.label)
+                                }
+                                this.state.onNewPoint(newPoint);
                                 this.setState({
                                     x: '',
                                     y: '',

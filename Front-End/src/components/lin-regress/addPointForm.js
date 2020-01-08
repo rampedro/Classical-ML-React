@@ -1,46 +1,29 @@
 import React, {Component} from 'react';
-import {Form, Input, Dropdown, Button} from 'semantic-ui-react';
-import {PROXY_URL} from './../misc/proxyURL';
+import {Form, Input, Button} from 'semantic-ui-react';
+import {PROXY_URL} from '../misc/proxyURL';
 import './addPointForm.css';
-
-const options = [
-    {
-        key: '+1',
-        text: 'Red',
-        value: 1
-    },
-    {
-        key: '-1',
-        text: 'Blue',
-        value: -1
-    }
-]
 
 function validNumber(str) {
     let trimmed = str.trim();
     return trimmed.length > 0 && isFinite(trimmed);
 };
 
-export async function getMetadata(points, c) {
+async function getMetadata(points) {
     const x = [];
     const y = [];
-    const labels = [];
     points.map(point => {
         x.push(point.x);
         y.push(point.y);
-        labels.push(point.label);
     });
     
-    const response = await fetch(PROXY_URL + '/svm', {
+    const response = await fetch(PROXY_URL + '/lin_regress', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             'x': x,
-            'y': y,
-            'labels': labels,
-            'c': c
+            'y': y
         })
     });
 
@@ -54,7 +37,6 @@ export class AddPointForm extends Component {
         this.state = {
             x: '',
             y: '',
-            label: null,
             xStatus: '',
             yStatus: '',
             onNewPoint: this.props.onNewPoint,
@@ -64,20 +46,19 @@ export class AddPointForm extends Component {
     };
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.points.length !== this.props.points.length
-            || prevProps.c !== this.props.c) {
+        if (prevProps.points.length !== this.props.points.length) {
             this.setState({
                 points: this.props.points
             });
 
-            const promise = getMetadata(this.props.points, this.props.c);
+            const promise = getMetadata(this.props.points);
             promise.then(metadata => this.state.updateMetadata(metadata));
         }
     };
 
     render() {
         return (
-            <div className='svm__form'>
+            <div className='lin-regress__form'>
                 <h2><u>Input Point</u>:</h2>
                 <Form className='xy-form'>
                     <header className="xy-form__row">
@@ -112,29 +93,11 @@ export class AddPointForm extends Component {
                             <span className="xy-form__row__span">{this.state.yStatus}</span>
                         </Form.Field>
                     </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <Dropdown   className='xy-form__label'
-                                        placeholder='Label'
-                                        fluid
-                                        selection
-                                        options={options}
-                                        onChange={(_, data) => {
-                                            this.setState({label: data.value});
-                                        }}
-                            />
-                        </Form.Field>
-                    </header>
                     <Button primary
                             className="add-point"
                             disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
                             onClick={async () => {
-                                let newPoint = {
-                                    x: Number(this.state.x), 
-                                    y: Number(this.state.y),
-                                    label: Number(this.state.label)
-                                }
-                                this.state.onNewPoint(newPoint);
+                                this.state.onNewPoint({x: Number(this.state.x), y: Number(this.state.y)});
                                 this.setState({
                                     x: '',
                                     y: '',
