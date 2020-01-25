@@ -23,12 +23,11 @@ const colors = [
 ];
 
 const metrics = [
-    "cosine", 
-    "manhattan", // L1
-    "euclidean", // L2
-    "chebyshev", 
-    "hamming", 
-    "jaccard"
+    "manhattan",
+    "euclidean",
+    "chebyshev",
+    "canberra",
+    "chi-square" 
 ];
 
 export class KMedoids extends Component {

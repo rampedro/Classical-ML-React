@@ -25,7 +25,7 @@ export const KMedoidsBackground = _ => {
                 where <InlineMath math='C_i \in \{ C_1, \ \dots \ , C_k \}' /> denotes
                 the clusters, <InlineMath math='\bm{\mu}_i' /> denotes the medoid of
                 cluster <InlineMath math='C_i' />, and <InlineMath math='\mathrm{Dist}' /> denotes
-                the distance function used here (Euclidean, Cosine, Manhattan, etc.).
+                the distance function used here (Euclidean, Manhattan, etc.).
             </p>
             <Header size='large'>References:</Header>
             <ul>
