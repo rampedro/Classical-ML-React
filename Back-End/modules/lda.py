@@ -1,11 +1,20 @@
 import numpy as np
-from numpy.linalg import eig, inv
+from numpy.linalg import eig, inv, norm
 
 def getGaussianData(m, C, n=1000):
     x = np.random.multivariate_normal(m, C, n)
     return x
 
-def getLine(means, w, T=10, N=2):
+def getT(means):
+    M = np.array(means).astype(np.float64).T
+    m = M.mean(axis=1, keepdims=True)
+    dists = norm(M - m, 2, axis=0)
+    dist = np.max(dists)
+    return dist
+
+def getLine(means, w, T=5, N=2):
+    if len(means) != 1:
+        T = getT(means)*T
     m = np.array(means).astype(np.float64).mean(axis=0)
     p = np.outer(np.ones(N), m).T
     t = np.linspace(0, T, N)
@@ -57,7 +66,7 @@ def lda(data):
             })
     
     w = computeDiscriminant(means, covMats)
-    line = getLine(means, w, T=10, N=2)
+    line = getLine(means, w, T=5, N=2)
     line = [{'x': line[0, i], 'y': line[1, i]} for i in range(line.shape[1])]
 
     output_data = {
