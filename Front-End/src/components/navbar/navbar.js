@@ -24,6 +24,9 @@ export const NavBar = _ => {
                     <li>
                         <NavLink to='/k-medoids'>K-Medoids</NavLink>
                     </li>
+                    <li>
+                        <NavLink to='/lda'>LDA</NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
