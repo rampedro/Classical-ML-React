@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Form, Input, Dropdown, Button} from 'semantic-ui-react';
+import {Form, Input, Button} from 'semantic-ui-react';
 import {PROXY_URL} from '../misc/proxyURL';
+import {InlineMath} from 'react-katex';
 import './addGaussianForm.css';
 
 function validNumber(str) {
@@ -28,11 +29,11 @@ export class AddGaussianForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            x: '',
-            y: '',
-            label: null,
-            xStatus: '',
-            yStatus: '',
+            x: {value: '', status: ''}, 
+            y: {value: '', status: ''},
+            varX: {value: '', status: ''},
+            varY: {value: '', status: ''},
+            covXY: {value: '', status: ''},
             onNewInput: this.props.onNewInput,
             updateMetadata: this.props.updateMetadata,
             means: this.props.means,
@@ -59,58 +60,138 @@ export class AddGaussianForm extends Component {
                 <Form className='xy-form'>
                     <header className="xy-form__row">
                         <Form.Field>
+                            <span class='xy-form__row__sym'>
+                                <InlineMath math='\mu_X' />:
+                            </span>
                             <Input  className="xy-form__row__input"
-                                    placeholder='X-Coordinate'
-                                    value={this.state.x}
+                                    value={this.state.x.value}
                                     onChange={e => {
-                                        this.setState({x: e.target.value});
+                                        let newX = {value: e.target.value, status: ''};
                                         if (validNumber(e.target.value) || e.target.value.length === 0)
-                                            this.setState({xStatus: ''});
+                                            newX.status = '';
                                         else
-                                            this.setState({xStatus: 'Not a number!'});
+                                            newX.status = 'Not a number!';
+                                        this.setState({x: newX});
                                     }}
                             />
-                            <span className='xy-form__row__span'>{this.state.xStatus}</span>
+                            <span className='xy-form__row__span'>{this.state.x.status}</span>
                         </Form.Field>
                     </header>
                     <header className="xy-form__row">
                         <Form.Field>
+                            <span class='xy-form__row__sym'>
+                                <InlineMath math='\mu_Y' />:
+                            </span>
                             <Input  className="xy-form__row__input"
-                                    placeholder='Y-Coordinate'
-                                    value={this.state.y}
+                                    value={this.state.y.value}
                                     onChange={e => {
-                                        this.setState({y: e.target.value});
+                                        let newY = {value: e.target.value, status: ''};
                                         if (validNumber(e.target.value) || e.target.value.length === 0)
-                                            this.setState({yStatus: ''});
+                                            newY.status = '';
                                         else
-                                            this.setState({yStatus: 'Not a number!'});
+                                            newY.status = 'Not a number!';
+                                        this.setState({y: newY});
                                     }}
                             />
-                            <span className="xy-form__row__span">{this.state.yStatus}</span>
+                            <span className="xy-form__row__span">{this.state.y.status}</span>
+                        </Form.Field>
+                    </header>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <span class='xy-form__row__sym'>
+                                <InlineMath math='\sigma_X' />:
+                            </span>
+                            <Input  className="xy-form__row__input"
+                                    value={this.state.varX.value}
+                                    onChange={e => {
+                                        let newVarX = {value: e.target.value, status: ''};
+                                        if (e.target.value.length === 0)
+                                            newVarX.status = '';
+                                        else if (!validNumber(e.target.value))
+                                            newVarX.status = 'Not a number!';
+                                        else if (validNumber(e.target.value) && e.target.value < 0)
+                                            newVarX.status = 'Variance is non-negative!';
+                                        else
+                                            newVarX.status = '';
+                                        this.setState({varX: newVarX});
+                                    }}
+                            />
+                            <span className="xy-form__row__span">{this.state.varX.status}</span>
+                        </Form.Field>
+                    </header>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <span class='xy-form__row__sym'>
+                                <InlineMath math='\sigma_Y' />:
+                            </span>
+                            <Input  className="xy-form__row__input"
+                                    value={this.state.varY.value}
+                                    onChange={e => {
+                                        let newVarY = {value: e.target.value, status: ''};
+                                        if (e.target.value.length === 0)
+                                            newVarY.status = '';
+                                        else if (!validNumber(e.target.value))
+                                            newVarY.status = 'Not a number!';
+                                        else if (validNumber(e.target.value) && e.target.value < 0)
+                                            newVarY.status = 'Variance is non-negative!';
+                                        else
+                                            newVarY.status = '';
+                                        this.setState({varY: newVarY});
+                                    }}
+                            />
+                            <span className="xy-form__row__span">{this.state.varY.status}</span>
+                        </Form.Field>
+                    </header>
+                    <header className="xy-form__row">
+                        <Form.Field>
+                            <span class='xy-form__row__sym'>
+                                <InlineMath math='\sigma_{XY}' />:
+                            </span>
+                            <Input  className="xy-form__row__input"
+                                    placeholder='Covariance of X,Y'
+                                    value={this.state.covXY.value}
+                                    onChange={e => {
+                                        let newCovXY = {value: e.target.value, status: ''};
+                                        if (validNumber(e.target.value) || e.target.value.length === 0)
+                                            newCovXY.status = '';
+                                        else
+                                            newCovXY.status = 'Not a number!';
+                                        this.setState({covXY: newCovXY});
+                                    }}
+                            />
+                            <span className="xy-form__row__span">{this.state.covXY.status}</span>
                         </Form.Field>
                     </header>
                     <Button primary
                             className="add-point"
-                            disabled={!(validNumber(this.state.x) && validNumber(this.state.y))}
+                            disabled={!(validNumber(this.state.x.value) && 
+                                        validNumber(this.state.y.value) &&
+                                        validNumber(this.state.varX.value) &&
+                                        this.state.varX.value >= 0 &&
+                                        validNumber(this.state.varY.value) &&
+                                        this.state.varY.value >= 0 &&
+                                        validNumber(this.state.covXY.value)
+                                    )}
                             onClick={async () => {
                                 let newMean = [
-                                    Number(this.state.x), 
-                                    Number(this.state.y)
+                                    Number(this.state.x.value), 
+                                    Number(this.state.y.value)
                                 ]
                                 let newCovMat = [
-                                    [1, 0],
-                                    [0, 1]
+                                    [this.state.varX.value, this.state.covXY.value],
+                                    [this.state.covXY.value, this.state.varY.value]
                                 ]
                                 this.state.onNewInput(newMean, newCovMat);
                                 this.setState({
-                                    x: '',
-                                    y: '',
-                                    xStatus: '',
-                                    yStatus: ''
+                                    x: {value: '', status: ''},
+                                    y: {value: '', status: ''},
+                                    varX: {value: '', status: ''},
+                                    varY: {value: '', status: ''},
+                                    covXY: {value: '', status: ''}
                                 });
                             }
                     }>
-                        Add Mean Vector
+                        Add Gaussian Class
                     </Button>
                 </Form>
             </div>

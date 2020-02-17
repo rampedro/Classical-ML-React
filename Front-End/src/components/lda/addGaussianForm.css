@@ -4,7 +4,11 @@
 }
 
 .xy-form__row__input {
-    width: 115px !important;
+    width: 50px !important;
+}
+
+.xy-form__row__sym {
+    margin-right: 20px;
 }
 
 .xy-form__row__span {

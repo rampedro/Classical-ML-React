@@ -48,6 +48,7 @@ export class LDA extends Component {
                     />
                     <Gaussians 
                         means={this.state.means}
+                        covMats={this.state.covarianceMatrices}
                         toggle={this.state.toggle}
                         deletePair={
                             i => this.setState({

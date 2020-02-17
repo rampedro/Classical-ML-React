@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.linalg import eig, inv, norm
+from numpy.linalg import eig, pinv, norm
 
 def getGaussianData(m, C, n=1000):
     x = np.random.multivariate_normal(m, C, n)
@@ -38,7 +38,7 @@ def computeDiscriminant(means, covarianceMatrices):
     M -= m0
     S_W = sum(covarianceMatrices).astype(np.float64)
     S_B = M @ M.T
-    evals, U = topK_Eig(inv(S_W) @ S_B, 1)
+    evals, U = topK_Eig(pinv(S_W) @ S_B, 1)
     w = U[:, 0]
     return w
 
