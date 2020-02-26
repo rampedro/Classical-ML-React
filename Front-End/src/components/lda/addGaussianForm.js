@@ -57,110 +57,99 @@ export class AddGaussianForm extends Component {
         return (
             <div className='lda__form'>
                 <h2><u>Input Gaussian Class</u>:</h2>
-                <Form className='xy-form'>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <span class='xy-form__row__sym'>
-                                <InlineMath math='\mu_X' />:
-                            </span>
-                            <Input  className="xy-form__row__input"
-                                    value={this.state.x.value}
-                                    onChange={e => {
-                                        let newX = {value: e.target.value, status: ''};
-                                        if (validNumber(e.target.value) || e.target.value.length === 0)
-                                            newX.status = '';
-                                        else
-                                            newX.status = 'Not a number!';
-                                        this.setState({x: newX});
-                                    }}
-                            />
-                            <span className='xy-form__row__span'>{this.state.x.status}</span>
-                        </Form.Field>
+                <Form>
+                    <header className="lda-form__row">
+                        <span class='lda-form__row__sym'>
+                            <InlineMath math='\mu_X' />:
+                        </span>
+                        <Input  className="lda-form__row__input"
+                                value={this.state.x.value}
+                                onChange={e => {
+                                    let newX = {value: e.target.value, status: ''};
+                                    if (validNumber(e.target.value) || e.target.value.length === 0)
+                                        newX.status = '';
+                                    else
+                                        newX.status = 'Not a number!';
+                                    this.setState({x: newX});
+                                }}
+                        />
+                        <span className='lda-form__row__span'>{this.state.x.status}</span>
                     </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <span class='xy-form__row__sym'>
-                                <InlineMath math='\mu_Y' />:
-                            </span>
-                            <Input  className="xy-form__row__input"
-                                    value={this.state.y.value}
-                                    onChange={e => {
-                                        let newY = {value: e.target.value, status: ''};
-                                        if (validNumber(e.target.value) || e.target.value.length === 0)
-                                            newY.status = '';
-                                        else
-                                            newY.status = 'Not a number!';
-                                        this.setState({y: newY});
-                                    }}
-                            />
-                            <span className="xy-form__row__span">{this.state.y.status}</span>
-                        </Form.Field>
+                    <header className="lda-form__row">
+                        <span class='lda-form__row__sym'>
+                            <InlineMath math='\mu_Y' />:
+                        </span>
+                        <Input  className="lda-form__row__input"
+                                value={this.state.y.value}
+                                onChange={e => {
+                                    let newY = {value: e.target.value, status: ''};
+                                    if (validNumber(e.target.value) || e.target.value.length === 0)
+                                        newY.status = '';
+                                    else
+                                        newY.status = 'Not a number!';
+                                    this.setState({y: newY});
+                                }}
+                        />
+                        <span className="lda-form__row__span">{this.state.y.status}</span>
                     </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <span class='xy-form__row__sym'>
-                                <InlineMath math='\sigma_X' />:
-                            </span>
-                            <Input  className="xy-form__row__input"
-                                    value={this.state.varX.value}
-                                    onChange={e => {
-                                        let newVarX = {value: e.target.value, status: ''};
-                                        if (e.target.value.length === 0)
-                                            newVarX.status = '';
-                                        else if (!validNumber(e.target.value))
-                                            newVarX.status = 'Not a number!';
-                                        else if (validNumber(e.target.value) && e.target.value < 0)
-                                            newVarX.status = 'Variance is non-negative!';
-                                        else
-                                            newVarX.status = '';
-                                        this.setState({varX: newVarX});
-                                    }}
-                            />
-                            <span className="xy-form__row__span">{this.state.varX.status}</span>
-                        </Form.Field>
+                    <header className="lda-form__row">
+                        <span class='lda-form__row__sym'>
+                            <InlineMath math='\sigma_X^2' />:
+                        </span>
+                        <Input  className="lda-form__row__input"
+                                value={this.state.varX.value}
+                                onChange={e => {
+                                    let newVarX = {value: e.target.value, status: ''};
+                                    if (e.target.value.length === 0)
+                                        newVarX.status = '';
+                                    else if (!validNumber(e.target.value))
+                                        newVarX.status = 'Not a number!';
+                                    else if (validNumber(e.target.value) && e.target.value < 0)
+                                        newVarX.status = 'Variance is non-negative!';
+                                    else
+                                        newVarX.status = '';
+                                    this.setState({varX: newVarX});
+                                }}
+                        />
+                        <span className="lda-form__row__span">{this.state.varX.status}</span>
                     </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <span class='xy-form__row__sym'>
-                                <InlineMath math='\sigma_Y' />:
-                            </span>
-                            <Input  className="xy-form__row__input"
-                                    value={this.state.varY.value}
-                                    onChange={e => {
-                                        let newVarY = {value: e.target.value, status: ''};
-                                        if (e.target.value.length === 0)
-                                            newVarY.status = '';
-                                        else if (!validNumber(e.target.value))
-                                            newVarY.status = 'Not a number!';
-                                        else if (validNumber(e.target.value) && e.target.value < 0)
-                                            newVarY.status = 'Variance is non-negative!';
-                                        else
-                                            newVarY.status = '';
-                                        this.setState({varY: newVarY});
-                                    }}
-                            />
-                            <span className="xy-form__row__span">{this.state.varY.status}</span>
-                        </Form.Field>
+                    <header className="lda-form__row">
+                        <span class='lda-form__row__sym'>
+                            <InlineMath math='\sigma_Y^2' />:
+                        </span>
+                        <Input  className="lda-form__row__input"
+                                value={this.state.varY.value}
+                                onChange={e => {
+                                    let newVarY = {value: e.target.value, status: ''};
+                                    if (e.target.value.length === 0)
+                                        newVarY.status = '';
+                                    else if (!validNumber(e.target.value))
+                                        newVarY.status = 'Not a number!';
+                                    else if (validNumber(e.target.value) && e.target.value < 0)
+                                        newVarY.status = 'Variance is non-negative!';
+                                    else
+                                        newVarY.status = '';
+                                    this.setState({varY: newVarY});
+                                }}
+                        />
+                        <span className="lda-form__row__span">{this.state.varY.status}</span>
                     </header>
-                    <header className="xy-form__row">
-                        <Form.Field>
-                            <span class='xy-form__row__sym'>
-                                <InlineMath math='\sigma_{XY}' />:
-                            </span>
-                            <Input  className="xy-form__row__input"
-                                    placeholder='Covariance of X,Y'
-                                    value={this.state.covXY.value}
-                                    onChange={e => {
-                                        let newCovXY = {value: e.target.value, status: ''};
-                                        if (validNumber(e.target.value) || e.target.value.length === 0)
-                                            newCovXY.status = '';
-                                        else
-                                            newCovXY.status = 'Not a number!';
-                                        this.setState({covXY: newCovXY});
-                                    }}
-                            />
-                            <span className="xy-form__row__span">{this.state.covXY.status}</span>
-                        </Form.Field>
+                    <header className="lda-form__row">
+                        <span class='lda-form__row__sym'>
+                            <InlineMath math='\sigma_{XY}' />:
+                        </span>
+                        <Input  className="lda-form__row__input"
+                                value={this.state.covXY.value}
+                                onChange={e => {
+                                    let newCovXY = {value: e.target.value, status: ''};
+                                    if (validNumber(e.target.value) || e.target.value.length === 0)
+                                        newCovXY.status = '';
+                                    else
+                                        newCovXY.status = 'Not a number!';
+                                    this.setState({covXY: newCovXY});
+                                }}
+                        />
+                        <span className="lda-form__row__span">{this.state.covXY.status}</span>
                     </header>
                     <Button primary
                             className="add-point"

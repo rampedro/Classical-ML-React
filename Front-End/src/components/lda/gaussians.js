@@ -33,8 +33,8 @@ export class Gaussians extends Component {
                                     <span className='point-row__point'>
                                     (   <InlineMath math='\mu_X = ' /> &nbsp; {meanVec[0]}, &nbsp;
                                         <InlineMath math='\mu_Y = ' /> &nbsp; {meanVec[1]},  &nbsp;
-                                        <InlineMath math='\sigma_X = ' /> &nbsp; {this.state.covMats[i][0][0]}, &nbsp;
-                                        <InlineMath math='\sigma_Y = ' /> &nbsp; {this.state.covMats[i][1][1]},  &nbsp;
+                                        <InlineMath math='\sigma_X^2 = ' /> &nbsp; {this.state.covMats[i][0][0]}, &nbsp;
+                                        <InlineMath math='\sigma_Y^2 = ' /> &nbsp; {this.state.covMats[i][1][1]},  &nbsp;
                                         <InlineMath math='\sigma_{XY} = ' /> &nbsp; {this.state.covMats[i][0][1]}
                                     )
                                     </span>
