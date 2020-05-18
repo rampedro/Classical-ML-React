@@ -38,7 +38,7 @@ def computeDiscriminant(means, covarianceMatrices):
     M -= m0
     S_W = sum(covarianceMatrices).astype(np.float64)
     S_B = M @ M.T
-    evals, U = topK_Eig(pinv(S_W) @ S_B, 1)
+    _, U = topK_Eig(pinv(S_W) @ S_B, 1)
     w = U[:, 0]
     return w
 
