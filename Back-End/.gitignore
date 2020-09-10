@@ -1,1 +1,9 @@
 modules/__pycache__/
+CHANGES
+LICENSE
+*.rst
+bin/
+lib/
+share/
+lib64
+*.cfg
