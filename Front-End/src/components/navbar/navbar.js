@@ -13,6 +13,9 @@ export const NavBar = _ => {
             <nav className='navbar__items'>
                 <ul>
                     <li>
+                        <NavLink to='/readdata'>ReadData</NavLink>
+                    </li>
+                    <li>
                         <NavLink to='/test'>Test</NavLink>
                     </li>
                     <li>
