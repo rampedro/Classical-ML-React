@@ -15,7 +15,6 @@ export const NavBar = _ => {
                     <li>
                         <NavLink to='/test'>Test</NavLink>
                     </li>
-
                     <li>
                         <NavLink to='/linear-regression'>Linear Regression</NavLink>
                     </li>
