@@ -10,3 +10,8 @@ To run locally:
   - Run the front-end app.
   
 Instructions for running both the front-end and back-end are in README files within each respective directory.
+
+
+# Additional features:
+
+A new module (Read Data) has been added. Its job is to let the react program read the data sent by python backend. 
