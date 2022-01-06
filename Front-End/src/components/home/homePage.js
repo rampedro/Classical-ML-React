@@ -7,7 +7,7 @@ export const HomePage = _ => {
     return (
         <div className='home-page'>
             <Header size='huge'>
-                Welcome to the Classical Machine Learning Visualizer!
+                Welcome to My Visualizer!
             </Header>
             <p>
                 This is a React application that uses D3.js to visualize several 

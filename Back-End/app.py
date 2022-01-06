@@ -3,6 +3,7 @@ from modules.svm import svm
 from modules.kmeans import kmeans
 from modules.kmedoids import kmedoids
 from modules.lda import lda
+from modules.testing import testing
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -12,12 +13,14 @@ services = {
     'lin_regress': linRegression,
     'kmeans': kmeans,
     'kmedoids': kmedoids,
-    'lda': lda
+    'lda': lda,
+    'testing' : testing
 }
 
 cors = CORS(app, resources={
     r'/{}'.format(service): {"origins": "*"} for service in services
 })
+
 
 @app.route('/<string:service_name>', methods=['POST'])
 def service(service_name):

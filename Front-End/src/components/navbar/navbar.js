@@ -7,11 +7,14 @@ export const NavBar = _ => {
         <header className='navbar'>
             <div className='navbar__icon'>
                 <h1>
-                    <NavLink to='/'>Classical ML Viz</NavLink>
+                    <NavLink to='/'>Visual Analytics tool</NavLink>
                 </h1>
             </div>
             <nav className='navbar__items'>
                 <ul>
+                    <li>
+                        <NavLink to='/test'>Test</NavLink>
+                    </li>
                     <li>
                         <NavLink to='/linear-regression'>Linear Regression</NavLink>
                     </li>
