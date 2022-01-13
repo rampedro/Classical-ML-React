@@ -14,4 +14,4 @@ Instructions for running both the front-end and back-end are in README files wit
 
 # Additional features:
 
-A new module (Read Data) has been added. Its job is to let the react program read the data sent by python backend. 
+A new module (ReadData) has been added. Its job is to let the react program read the data sent by python backend. 
