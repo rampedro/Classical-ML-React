@@ -8,10 +8,15 @@ import './points.css';
 
 
 
+
+
+
+
 export class ReadData extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            
             stateData: 'Empty',
             points: [{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 4 }],
             metadata: {
@@ -79,6 +84,10 @@ export class ReadData extends Component {
                             <p>
                                 This is just a json example returned from Python BackEnd.
                                 {this.state.stateData}
+
+
+
+                                
                             </p>
 
 
