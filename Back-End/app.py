@@ -10,6 +10,7 @@ from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+
 services = {
     'svm': svm,
     'lin_regress': linRegression,
