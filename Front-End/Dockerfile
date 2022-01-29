@@ -1,9 +1,9 @@
 # Pull latest official node image
-FROM node:latest
+FROM node:alpine
 
 # Expose ports
 EXPOSE 3000
-EXPOSE 35729
+#EXPOSE 35729
 
 # Set working directory
 WORKDIR /app
@@ -12,12 +12,12 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # Copy package files and install app dependencies
-COPY package.json /app/package.json
+COPY package*.json /app/package.json
 #COPY yarn.lock /app/yarn.lock
-RUN yarn install
+#RUN npm install
 
 # Add React app to working directory
 ADD . /app
 
 # Start the React app
-CMD ["yarn", "start"]
+CMD ["npm", "start"]

@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  back:
+    build: /Users/book/Desktop/javascript/remlf3/Classical-ML-React/Back-End/
+
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+  front:
+    build: /Users/book/Desktop/javascript/remlf3/Classical-ML-React/Front-End/
+
+volumes:
+  logvolume01: {}
