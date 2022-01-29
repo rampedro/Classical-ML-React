@@ -9,7 +9,7 @@ export class Points extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mylist : [10,2,3,4],
+            mylist : [1,2,3,4],
             points: this.props.points,
             toggle: this.props.toggle,
             deletePoint: this.props.deletePoint
@@ -26,7 +26,7 @@ export class Points extends Component {
         this.update();
     };
 
-
+c
 
     printdata(){
         d3.select("body").selectAll("p")
