@@ -14,10 +14,12 @@ ENV PATH /app/node_modules/.bin:$PATH
 # Copy package files and install app dependencies
 COPY package*.json /app/package.json
 #COPY yarn.lock /app/yarn.lock
-#RUN npm install
+RUN yarn install
+
+COPY . /app
 
 # Add React app to working directory
 ADD . /app
 
 # Start the React app
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
