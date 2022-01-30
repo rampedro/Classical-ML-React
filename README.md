@@ -10,3 +10,11 @@ To run locally:
   - Run the front-end app.
   
 Instructions for running both the front-end and back-end are in README files within each respective directory.
+
+# OR
+
+You may use the command below to make two containers one for front and one for back end.
+
+>> docker compose up
+
+
