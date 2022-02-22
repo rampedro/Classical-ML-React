@@ -1,8 +1,4 @@
 from modules.lin_regress import linRegression
-from modules.svm import svm
-from modules.kmeans import kmeans
-from modules.kmedoids import kmedoids
-from modules.lda import lda
 from modules.test import testing
 from modules.readdata import readdata
 from flask import Flask, request, jsonify
@@ -12,11 +8,7 @@ import json
 app = Flask(__name__)
 
 services = {
-    'svm': svm,
     'lin_regress': linRegression,
-    'kmeans': kmeans,
-    'kmedoids': kmedoids,
-    'lda': lda,
     'testing' : testing,
     'readdata' : readdata
 }

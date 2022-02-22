@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from 'semantic-ui-react';
 import { InlineMath, BlockMath } from 'react-katex';
 
-export const LinRegressBackground = _ => {
+export const BackgroundText = _  => {
     return (
         <div className='lin-regress__background'>
             <Header size='huge'>

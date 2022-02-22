@@ -27,9 +27,9 @@ export class Points extends Component {
     };
 
 
-
+// X body does not exsit, this is just for debuging 
     printdata(){
-        d3.select("body").selectAll("p")
+        d3.select("xbody").selectAll("p")
             .data(this.state.mylist)
             .enter()
             .append("p")

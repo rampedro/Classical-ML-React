@@ -72,7 +72,7 @@ export class ReadData extends Component {
                 <Header className='title'
                     size='huge'>
 
-                    Loading data from Python backend !
+                    *Loading data from Python backend !
                 </Header>
 
                 <AddPersonFrom />
