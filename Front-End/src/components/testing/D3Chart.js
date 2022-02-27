@@ -15,8 +15,20 @@ export default class D3Chart{
       .attr("height", 500)
 
   d3.json(url).then(agesData => {
+    
     const rects = svg.selectAll("rect")
       .data(agesData)
+
+    const txt = svg.selectAll("text")
+      .data(agesData)
+
+    txt.enter()
+      .append("text")
+        .attr("x", (d, i) => i * 100)
+        .attr("y", 200)
+        .attr("font-size", 11)
+        .attr("fill", "red")
+        .text(d => d.name)
 
     rects.enter()
     

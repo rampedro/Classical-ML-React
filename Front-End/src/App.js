@@ -18,7 +18,7 @@ export default class App extends Component {
                     <NavBar />
                     <div className='main-content'>
                         <Switch>
-                            <Route path='/readData' component={ReadData} />
+                            <Route path='/dataFetch' component={ReadData} />
                             <Route path='/test' component={Testing} />
                             <Route path='/linear-regression' component={LinRegress} />
                             <Route path='/' component={HomePage} />

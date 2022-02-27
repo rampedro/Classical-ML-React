@@ -1,6 +1,6 @@
 from modules.lin_regress import linRegression
 from modules.test import testing
-from modules.readdata import readdata
+from modules.dataFetch import dataFetch
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -10,7 +10,7 @@ app = Flask(__name__)
 services = {
     'lin_regress': linRegression,
     'testing' : testing,
-    'readdata' : readdata
+    'dataFetch' : dataFetch
 }
 
 cors = CORS(app, resources={
@@ -30,8 +30,8 @@ def service(service_name):
     
     data = request.get_json()
     output_data = service_func(data)
-    serializeddata = json.dumps(output_data)
-    return serializeddata
+    output_data = json.dumps(output_data)
+    return output_data
 
 
 if __name__ == "__main__":

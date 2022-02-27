@@ -39,7 +39,7 @@ export class ReadData extends Component {
                 result.json().then(data => {
                     //console.log(data);
                     // Settign the state ( making the changes to be render soon after)
-                    this.setState({ stateData: data })
+                    this.setState({ stateData: data.loc })
 
                 })
                     .catch((error) => console.log(error.message));
@@ -50,7 +50,7 @@ export class ReadData extends Component {
     // Mounting component lets calls the getdata(url)
 
     componentDidMount() {
-        this.getData('http://127.0.0.1:5000/readdata');
+        this.getData('http://127.0.0.1:5000/dataFetch');
     }
 
 

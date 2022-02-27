@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {BackgroundText} from './BackgroundText';
 import { Header } from 'semantic-ui-react';
-import ChartWeapper from './ChartWrapper';
+import ChartWrapper from './ChartWrapper';
+import AnyWrapper from './AnyWrapper';
 
 
 export class Testing extends Component {
@@ -15,7 +16,7 @@ export class Testing extends Component {
     render() {
         return (
             <div>
-                <ChartWeapper />
+                <AnyWrapper />
           </div>
         );
     }
