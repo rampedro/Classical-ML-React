@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 services = {
     'lin_regress': linRegression,
-    'testing' : testing,
-    'dataFetch' : dataFetch
+    'testing': testing,
+    'dataFetch': dataFetch
 }
 
 cors = CORS(app, resources={
@@ -18,16 +18,14 @@ cors = CORS(app, resources={
 })
 
 
-
-
-@app.route('/<string:service_name>', methods=['GET','POST'])
+@app.route('/<string:service_name>', methods=['GET', 'POST'])
 def service(service_name):
     try:
         service_func = services[service_name]
     except:
         # service does not exist
         return None, 401
-    
+
     data = request.get_json()
     output_data = service_func(data)
     output_data = json.dumps(output_data)
