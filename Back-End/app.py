@@ -1,6 +1,7 @@
 from modules.lin_regress import linRegression
 from modules.test import testing
 from modules.dataFetch import dataFetch
+from modules.patterns import createPatterns
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -10,7 +11,8 @@ app = Flask(__name__)
 services = {
     'lin_regress': linRegression,
     'testing' : testing,
-    'dataFetch' : dataFetch
+    'dataFetch' : dataFetch,
+    'patterns' : createPatterns
 }
 
 cors = CORS(app, resources={

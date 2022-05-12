@@ -16,6 +16,7 @@ async function getMetadata(points) {
         y.push(point.y);
     });
     
+    
     const response = await fetch(PROXY_URL + '/lin_regress', {
         method: 'POST',
         headers: {
