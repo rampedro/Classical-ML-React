@@ -4,6 +4,8 @@ import {LinRegress} from './components/lin-regress/linRegress';
 import {NavBar} from './components/navbar/navbar';
 import {HomePage} from './components/home/homePage';
 import {Testing} from './components/testing/testing';
+import {Patterns} from './components/patterns/patterns';
+
 import { ReadData, Example } from './components/readData/readData';
 
 
@@ -18,6 +20,7 @@ export default class App extends Component {
                     <NavBar />
                     <div className='main-content'>
                         <Switch>
+                            <Route path='/patterns' component={Patterns} />
                             <Route path='/dataFetch' component={ReadData} />
                             <Route path='/test' component={Testing} />
                             <Route path='/linear-regression' component={LinRegress} />
