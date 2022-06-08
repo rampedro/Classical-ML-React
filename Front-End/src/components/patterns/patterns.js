@@ -40,7 +40,11 @@ export class Patterns extends Component {
         }
     
 
+// in the rendering,
+// get name of the shape of patten from the API above, and 
+// pass it to Anywrapper, to make it for you.
 
+// The raeason div does not show this.state.name is because the intiriaul state of name
 
     
 
@@ -49,6 +53,8 @@ export class Patterns extends Component {
        <g>
             <div> Click on the button above to appear a name here -- {this.state.name} </div>
             <ChartWrapper />
+
+            
             <AnyWrapper />
            
             </g>

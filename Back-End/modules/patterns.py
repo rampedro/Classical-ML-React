@@ -1,9 +1,8 @@
 
 def createPatterns(name):
-    arr = []
-    for char in "Pedram Ahadinejad*":
-        arr.append(char)
-    output_data = {"name":arr,"size":[4]}
+    
+    
+    output_data = {"name":[name],"size":[]}
     print("debug")
     return output_data
 

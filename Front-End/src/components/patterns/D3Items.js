@@ -7,22 +7,34 @@ const url = "http://127.0.0.1:5000/patterns"
 // Which is run whenever the class is initialized
 
 export default class D3Items{
-  constructor(element){
+  constructor(element,shape){
+
 
     const svg = d3.select(element)
     .append("svg")
       .attr("width", 1000)
       .attr("height", 1000)
 
-
+    console.log(shape)
+      if (shape == "circle"){
     svg
-      .append("circle")
+      .append(shape)
       .attr("cx", 100)
       .attr("cy", 50)
       .attr("r", 40)
       .attr("fill", "pink")
 
+  } else if (shape == "rect"){
+    svg
+      
+    .append(shape)
+      .attr("x", 100)
+      .attr("y", 50)
+      .attr("width", 50)
+      .attr("height", 40)
+      
 
+  }
  // ### Reading from a DATA source D3 style ###
 //  d3.json(url).then(myData => {
 //    console.log(myData)

@@ -15,7 +15,7 @@ const AnyWrapper = ({data}) => {
   useEffect(() => {
     if (!anyItem) {
       // Attaching our d3 element to DIV
-      setItem(new D3Items(myRef.current))
+      setItem(new D3Items(myRef.current,"rect"))
     }
     else {
       //chart.update(data)
