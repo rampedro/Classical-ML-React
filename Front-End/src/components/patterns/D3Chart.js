@@ -20,6 +20,7 @@ export default class D3Chart{
    
     const rects = svg.selectAll("rect")
       .data(agesData)
+      
 
     const txt = svg.selectAll("text")
       .data(agesData)
